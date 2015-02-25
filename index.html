@@ -1,0 +1,114 @@
+<!DOCTYPE html>
+<! Ref: http://tutorialzine.com/2013/06/digital-clock-adding-alarms/>
+
+<html>
+
+	<head>
+		<meta charset="utf-8"/>
+		<title>IAT381 : A02 Alarm Clock</title>
+
+		<!-- The main CSS file -->
+		<link href="assets/css/style.css" rel="stylesheet" />
+
+		<!--[if lt IE 9]>
+			<script src="http://html5shiv.googlecode.com/svn/trunk/html5.js"></script>
+		<![endif]-->
+ 
+
+<! Change BG based on time (not working yet>
+<! Ref: http://www.katgal.com/2007/03/time-sensitive-css-switcher/>
+
+
+  <div id="hexClock">
+    <div id="time"></div>
+    <div id="hexColor"></div>
+  </div>
+
+  <script src="assets/js/hexclock.js"></script>
+
+
+
+
+	</head>
+
+	<body>
+
+		<div id="clock" class="dark">
+			<div class="display">
+				<div class="weekdays"></div>
+				<div class="ampm"></div>
+				<div class="alarm"></div>
+				<div class="digits"></div>
+			</div>
+		</div>
+
+		
+
+		<!-- The dialog is hidden with css -->
+		<div class="overlay">
+
+			<div id="alarm-dialog">
+
+				<h2>Set alarm</h2>
+
+				<label class="hours">
+					Hours
+					<input type="number" value="0" min="0" />
+				</label>
+
+				<label class="minutes">
+					Minutes
+					<input type="number" value="0" min="0" />
+				</label>
+
+				<label class="seconds">
+					Seconds
+					<input type="number" value="0" min="0" />
+				</label>
+
+				<div class="button-holder">
+					<a id="alarm-set" class="button blue">Set</a>
+					<a id="alarm-clear" class="button red">Clear</a>
+				</div>
+
+				<a class="close"></a>
+
+			</div>
+
+		</div>
+
+		<div class="overlay">
+
+			<div id="time-is-up">
+
+				<h2>Time's up!</h2>
+
+				<div class="button-holder">
+					<a class="button blue">Close</a>
+				</div>
+
+			</div>
+
+		</div>
+
+		<audio id="alarm-ring" preload>
+			<source src="assets/audio/ticktac.mp3" type="audio/mpeg" />
+			<source src="assets/audio/ticktac.ogg" type="audio/ogg" />
+		</audio>
+
+		<footer>
+            <div class="button-holder">			
+			<a class="alarm-button"></a>
+			</div>
+            
+            <span class="close"></span>
+        </footer>
+        
+		<!-- JavaScript Includes -->
+		<script src="js/jquery-2.1.3.js"></script>
+		<script src="http://cdnjs.cloudflare.com/ajax/libs/jquery/1.10.1/jquery.min.js"></script>
+		<script src="http://cdnjs.cloudflare.com/ajax/libs/moment.js/2.0.0/moment.min.js"></script>
+		<script src="assets/js/script.js"></script>
+
+	</body>
+</html>
