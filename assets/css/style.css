@@ -454,7 +454,8 @@ input::-webkit-inner-spin-button {
 #time-is-up{
 	width:500px;
 	height:375px;
-	background-color:#fff;
+	background-color:#FFF;
+	opacity: 0.9;
 	border-radius:2px;
 	box-shadow: 0 0 8px rgba(0,0,0,0.2);
 	position:fixed;
