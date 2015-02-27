@@ -1,16 +1,18 @@
 $(function(){
 
-	// Cache some selectors
-
-	var clock = $('#clock'),
+	var 
+		h = $(window).height(),
+		w = $(window).width(),
+		clock = $('#clock'),
 		alarm = clock.find('.alarm'),
 		ampm = clock.find('.ampm'),
 		dialog = $('#alarm-dialog').parent(),
 		alarm_set = $('#alarm-set'),
 		alarm_clear = $('#alarm-clear'),
+		alarm_box = $('#alarm-box'),
 		time_is_up = $('#time-is-up').parent();
 
-
+	// TESTER ///////////
 	var element = $('.element');
 
 	$('.element').click(function(){
@@ -18,7 +20,7 @@ $(function(){
 			.velocity({translateX: 100}, 300) 
 			.velocity({translateX: 0}, 300);
 	});
-
+	////////////////////
 
 	// This will hold the number of seconds left
 	// until the alarm should go off
@@ -163,6 +165,8 @@ $(function(){
 	// Handle setting and clearing alamrs
 
 	$('.alarm-button').click(function(){
+		alarm_box
+			.velocity({translateY: -100}, 300) 
 		
 		// Show the dialog
 		dialog.trigger('show');
@@ -170,6 +174,9 @@ $(function(){
 	});
 
 	dialog.find('.close').click(function(){
+		alarm_box
+			.velocity({translateY: 0}, 300);
+
 		dialog.trigger('hide')
 	});
 
@@ -187,7 +194,6 @@ $(function(){
 
 
 	alarm_set.click(function(){
-
 		var valid = true, after = 0,
 			to_seconds = [3600, 60, 1];
 

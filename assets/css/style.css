@@ -419,9 +419,12 @@ a.button:hover{
 .alarm-button{
 	width: 92px;
 	height: 22px;
+	left: -46px;
+	/*
 	vertical-align: middle;
 	margin-left: -6px;
 	margin-right: -44px;
+	*/
 	display: inline-block;
 	background: url('../img/alarm_btn.png');
 	position: relative;
@@ -552,22 +555,21 @@ input::-webkit-inner-spin-button {
 -----------------------------*/
 
 
-footer{
+#alarm-box{
 
-	width: 770px;
+	width: 100%;
+	height: 100%;
+	top: 80%;
 	font: normal 16px Arial, Helvetica, sans-serif;
 	padding: 15px 35px;
 	position: fixed;
-	bottom: 0;
-	left: 50%;
-	margin-left: -420px;
 
 	background-color:#1f1f1f;
-
+/*
 	background-image:-webkit-linear-gradient(top, #1f1f1f, #101010);
 	background-image:-moz-linear-gradient(top, #1f1f1f, #101010);
 	background-image:linear-gradient(top, #1f1f1f, #101010);
-
+*/
 	border-radius:2px 2px 0 0;
 
 	box-shadow: 0 -1px 4px rgba(0,0,0,0.4);
