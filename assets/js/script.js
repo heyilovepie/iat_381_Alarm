@@ -10,6 +10,16 @@ $(function(){
 		alarm_clear = $('#alarm-clear'),
 		time_is_up = $('#time-is-up').parent();
 
+
+	var element = $('.element');
+
+	$('.element').click(function(){
+		element
+			.velocity({translateX: 100}, 300) 
+			.velocity({translateX: 0}, 300);
+	});
+
+
 	// This will hold the number of seconds left
 	// until the alarm should go off
 	var alarm_counter = -1;
