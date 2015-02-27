@@ -167,15 +167,14 @@ $(function(){
 	$('.alarm-button').click(function(){
 		alarm_box
 			.velocity({translateY: -100}, 300) 
-		
+	});
+
+	$('#new-alarm-button').click(function(){
 		// Show the dialog
 		dialog.trigger('show');
-
 	});
 
 	dialog.find('.close').click(function(){
-		alarm_box
-			.velocity({translateY: 0}, 300);
 
 		dialog.trigger('hide')
 	});
@@ -231,12 +230,13 @@ $(function(){
 
 	alarm_clear.click(function(){
 		alarm_counter = -1;
-
 		dialog.trigger('hide');
 	});
 
 	// Custom events to keep the code clean
 	dialog.on('hide',function(){
+		alarm_box
+			.velocity({translateY: 0}, 300);
 
 		dialog.fadeOut();
 

@@ -6,6 +6,8 @@
 	<head>
 		<meta charset="utf-8"/>
 		<title>IAT381 : A02 Alarm Clock</title>
+    	<link rel="shortcut icon" href="assets/img/alarm_icon.ico"/>
+    	<meta name="viewport" content="width=device-width, height=device-height, initial-scale=1.0, maximum-scale=1.0, user-scalable=no" />
 
 		<!-- The main CSS file -->
 		<link href="assets/css/style.css" rel="stylesheet" />
@@ -103,7 +105,11 @@
             
             <span class="close"></span>
 
-            <div id="alarm-set"></div>
+            <div ng-repeat="n in [42, 42, 43, 43]">
+  			 <div id="new-alarm-button">
+  			 	<div class="element"></div>
+  			 </div>
+			</div>
         </footer>
         
 		<!-- JavaScript Includes -->

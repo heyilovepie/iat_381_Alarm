@@ -386,8 +386,9 @@ section, footer, header, aside{
 
 
 .button-holder{
+	width:100%;
 	text-align:center;
-	padding-bottom:100px;
+	padding-bottom:30px;
 }
 
 a.button{
@@ -430,6 +431,11 @@ a.button:hover{
 	position: relative;
 	z-index: 0;
 	cursor: pointer;
+}
+
+#new-alarm-button{
+	width: 90%;
+	background-color: #ffffff;
 }
 
 
@@ -529,7 +535,7 @@ input::-webkit-inner-spin-button {
 	height: 36px;
 	background: url('../img/close.png');
 	position: absolute;
-	top: -18px;
+	top: -39px;
 	right: -18px;
 	cursor:pointer;
 }
