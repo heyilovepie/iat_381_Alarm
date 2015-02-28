@@ -11,16 +11,10 @@ $(function(){
 		alarm_clear = $('#alarm-clear'),
 		alarm_box = $('#alarm-box'),
 		time_is_up = $('#time-is-up').parent();
+		alarmbox = false;
 
-	// TESTER ///////////
-	var element = $('.element');
-
-	$('.element').click(function(){
-		element
-			.velocity({translateX: 100}, 300) 
-			.velocity({translateX: 0}, 300);
-	});
-	////////////////////
+	//makes the alarm box start off 50 px from the bottom
+	alarm_box.css({ top: h - 50 });
 
 	// This will hold the number of seconds left
 	// until the alarm should go off
@@ -165,13 +159,15 @@ $(function(){
 	// Handle setting and clearing alamrs
 
 	$('.alarm-button').click(function(){
-		alarm_box
-			.velocity({translateY: -100}, 300) 
+		alarm_box.velocity({translateY: -100}, 300, function(){
+			alarmbox = true;
+		}); 
 	});
 
 	$('#new-alarm-button').click(function(){
 		// Show the dialog
 		dialog.trigger('show');
+		clock.velocity({translateY: -200}, 300);
 	});
 
 	dialog.find('.close').click(function(){
@@ -235,8 +231,8 @@ $(function(){
 
 	// Custom events to keep the code clean
 	dialog.on('hide',function(){
-		alarm_box
-			.velocity({translateY: 0}, 300);
+		closeAlarmBox();
+		clock.velocity({translateY: 0}, 300);
 
 		dialog.fadeOut();
 
@@ -272,4 +268,9 @@ $(function(){
 		time_is_up.fadeOut();
 	});
 
+	var closeAlarmBox = function(){
+		alarm_box.velocity({translateY: 0}, 300, function(){
+			alarmbox = false;
+		});
+	};
 });
