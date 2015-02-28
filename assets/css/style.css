@@ -62,13 +62,23 @@ section, footer, header, aside{
 
 
 #clock{
+<<<<<<< HEAD
 	width: 81%;
+=======
+	width: 370px;
+	padding:40px;
+	margin:200px auto 60px;
+>>>>>>> b2be728b116cdb46ae825199997eb801e0c77d38
 	position:relative;
 	padding: 50% 0em 0em 2em;
 }
 
 #clock:after{
+<<<<<<< HEAD
 	/*position:absolute;*/
+=======
+	position:absolute;
+>>>>>>> b2be728b116cdb46ae825199997eb801e0c77d38
 	width:400px;
 	height:20px;
 	border-radius:100%;

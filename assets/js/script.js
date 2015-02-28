@@ -143,11 +143,42 @@ $(function(){
 
 	})();
 
+	function configure(){
+		h = $(window).height();
+		w = $(window).width();
 
+		alarm_box.css({ top: h - 50 });
 
+		var cWidth = 370 - 80;
+		var cPadding = 40;
+		if(w < 370){
+			cPadding = 10;
+			cWidth = w - 20;
+		}
+		clock.css({ width: cWidth});
+		clock.css({ padding: cPadding});
 
+		var adTop = 200; //alarm_dialogue top
 
-	
+		if(h < 400){
+			clock.velocity({translateY: -200}, 300);
+			adTop = 10;
+		}else{
+			clock.velocity({translateY: 0}, 300);
+		}
+
+		dialog.css({top: adTop});
+
+		/*
+		var tuHeight = 375 //time-is-up height
+		if(h < tuHeight) tuHeight = h;
+		time_is_up.css({height: tuHeight});
+		*/
+	};
+
+	//When you flip the phone
+	$( window ).resize(configure);
+	configure();
 
 	// Switch the theme
 
@@ -159,9 +190,11 @@ $(function(){
 	// Handle setting and clearing alamrs
 
 	$('.alarm-button').click(function(){
-		alarm_box.velocity({translateY: -100}, 300, function(){
-			alarmbox = true;
-		}); 
+		if(alarmbox){
+			alarm_box.trigger('hide');
+		}else{
+			alarm_box.trigger('show');
+		}
 	});
 
 	$('#new-alarm-button').click(function(){
@@ -231,9 +264,8 @@ $(function(){
 
 	// Custom events to keep the code clean
 	dialog.on('hide',function(){
-		closeAlarmBox();
-		clock.velocity({translateY: 0}, 300);
-
+		alarm_box.trigger('hide');
+		if ( h > 400 ) clock.velocity({translateY: 0}, 300);
 		dialog.fadeOut();
 
 	}).on('show',function(){
@@ -268,9 +300,22 @@ $(function(){
 		time_is_up.fadeOut();
 	});
 
-	var closeAlarmBox = function(){
+	$('body').on("swipeup", function(){
+		if(alarmbox) alarm_box.trigger('hide');
+	});
+
+	$('body').on("swipedown", function(){
+		if(!alarmbox) alarm_box.trigger('show');
+	});
+
+	// Custom events to keep the code clean
+	alarm_box.on('hide',function(){
 		alarm_box.velocity({translateY: 0}, 300, function(){
 			alarmbox = false;
 		});
-	};
+	}).on('show',function(){
+		alarm_box.velocity({translateY: -100}, 300, function(){
+			alarmbox = true;
+		});
+	});
 });
