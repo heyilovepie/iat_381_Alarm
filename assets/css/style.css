@@ -6,10 +6,9 @@
 *{
 	margin:0;
 	padding:0;
-	/*color: #eee;*/
 }
 
-
+}
 /*-------------------------
 	General Styles
 --------------------------*/
@@ -23,11 +22,9 @@
 @import url(http://fonts.googleapis.com/css?family=Lato:300|Ubuntu:300);
 
 
-
 html, body {
     font:15px/1.3 Arial, sans-serif;
-	z-index:1;
-	
+	z-index:1;	
 }
 
 #hexClock {
@@ -45,11 +42,6 @@ html, body {
     margin-top: 5px;
     font-family: 'Ubuntu';
 }
-
-
-
-
-
 
 a, a:visited {
 	outline:none;
@@ -69,27 +61,23 @@ section, footer, header, aside{
 	The clocks
 --------------------------*/
 
-
 @charset "UTF-8";
 /* CSS Document */
 
 
 
 #clock{
-	width: 370px;
-	padding:40px;
-	margin:200px auto 60px;
+	width: 100%;
 	position:relative;
+	padding: 50% 0em 0em 2em;
 }
 
 #clock:after{
-	content:'';
-	position:absolute;
+	/*position:absolute;*/
 	width:400px;
 	height:20px;
 	border-radius:100%;
 	left:50%;
-	margin-left:-200px;
 	bottom:2px;
 	z-index:-1;
 }
@@ -97,22 +85,18 @@ section, footer, header, aside{
 
 #clock .display{
 	text-align:center;
-	padding: 40px 20px 20px;
+	padding: 3em 0em 4em 0em;
 	border-radius:6px;
 	position:relative;
-	height: 54px;
 }
-
-
 
 
 /*-------------------------
 	Dark color theme
 --------------------------*/
 
-
 #clock.dark{
-	background-color:#272e38;
+	/*background-color:#272e38;*/
 	color:#cacaca;
 }
 
@@ -130,8 +114,8 @@ section, footer, header, aside{
 }
 
 #clock.dark .display{
-	background-color:#0f1620;
-	box-shadow:0 1px 1px rgba(0,0,0,0.08) inset, 0 1px 1px #2d3642;
+/*	background-color:#0f1620;
+	box-shadow:0 1px 1px rgba(0,0,0,0.08) inset, 0 1px 1px #2d3642;*/
 }
 
 #clock.dark .digits div.dots:before,
@@ -388,7 +372,7 @@ section, footer, header, aside{
 .button-holder{
 	width:100%;
 	text-align:center;
-	padding-bottom:30px;
+	padding-bottom: 1em;
 }
 
 a.button{
@@ -420,7 +404,7 @@ a.button:hover{
 .alarm-button{
 	width: 92px;
 	height: 22px;
-	left: -46px;
+/*	left: -46px;*/
 	/*
 	vertical-align: middle;
 	margin-left: -6px;
@@ -434,10 +418,11 @@ a.button:hover{
 }
 
 #new-alarm-button{
-	width: 90%;
-	background-color: #ffffff;
+	width: 92%;
+	/*background-color: #ffffff;*/
 	border-radius:6px;
-	background-color:#0f1620;
+	background-color:#373636;
+	padding: 0em 0em 0em 1em;
 }
 
 /*-------------------------
@@ -563,12 +548,11 @@ input::-webkit-inner-spin-button {
 
 
 #alarm-box{
-
 	width: 100%;
 	height: 100%;
 	top: 95%;
 	font: normal 16px Arial, Helvetica, sans-serif;
-	padding: 15px 35px;
+	padding: 1em 0em 0em 0.5em;
 	position: fixed;
 
 	background-color:#1f1f1f;
@@ -586,8 +570,8 @@ input::-webkit-inner-spin-button {
 footer h2{
 	text-transform: uppercase;
 	font-size:18px;
-	color:#5e6268;
-	padding: 20px 50px;
+	color:#DBDFE5;
+	padding: 1em 0em;
 }
 
 footer a.tz{
