@@ -149,6 +149,27 @@ $(function(){
 		w = $(window).width();
 
 		alarm_box.css({ top: h - 50 });
+
+		var cWidth = 370 - 80;
+		var cPadding = 40;
+		if(w < 370){
+			cPadding = 10;
+			cWidth = w - 20;
+		}
+		clock.css({ width: cWidth});
+		clock.css({ padding: cPadding});
+
+		var adTop = 200; //alarm_dialogue top
+
+		if(h < 400){
+			clock.velocity({translateY: -200}, 300);
+			adTop = 10;
+			console.log("changed adtop");
+		}else{
+			clock.velocity({translateY: 0}, 300);
+		}
+
+		dialog.css({top: adTop});
 	});
 
 	// Switch the theme
@@ -236,8 +257,7 @@ $(function(){
 	// Custom events to keep the code clean
 	dialog.on('hide',function(){
 		alarm_box.trigger('hide');
-		clock.velocity({translateY: 0}, 300);
-
+		if ( h > 400 ) clock.velocity({translateY: 0}, 300);
 		dialog.fadeOut();
 
 	}).on('show',function(){
