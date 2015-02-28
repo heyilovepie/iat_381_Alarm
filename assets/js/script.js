@@ -159,9 +159,11 @@ $(function(){
 	// Handle setting and clearing alamrs
 
 	$('.alarm-button').click(function(){
-		alarm_box.velocity({translateY: -100}, 300, function(){
-			alarmbox = true;
-		}); 
+		if(alarmbox){
+			alarm_box.trigger('hide');
+		}else{
+			alarm_box.trigger('show');
+		}
 	});
 
 	$('#new-alarm-button').click(function(){
@@ -231,7 +233,7 @@ $(function(){
 
 	// Custom events to keep the code clean
 	dialog.on('hide',function(){
-		closeAlarmBox();
+		alarm_box.trigger('close');
 		clock.velocity({translateY: 0}, 300);
 
 		dialog.fadeOut();
@@ -268,9 +270,14 @@ $(function(){
 		time_is_up.fadeOut();
 	});
 
-	var closeAlarmBox = function(){
+	// Custom events to keep the code clean
+	alarm_box.on('hide',function(){
 		alarm_box.velocity({translateY: 0}, 300, function(){
 			alarmbox = false;
 		});
-	};
+	}).on('show',function(){
+		alarm_box.velocity({translateY: -100}, 300, function(){
+			alarmbox = true;
+		});
+	});
 });
