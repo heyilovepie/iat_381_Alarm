@@ -143,8 +143,7 @@ $(function(){
 
 	})();
 
-	//When you flip the phone
-	$( window ).resize(function(){
+	function configure(){
 		h = $(window).height();
 		w = $(window).width();
 
@@ -170,7 +169,11 @@ $(function(){
 		}
 
 		dialog.css({top: adTop});
-	});
+	};
+
+	//When you flip the phone
+	$( window ).resize(configure);
+	configure();
 
 	// Switch the theme
 
