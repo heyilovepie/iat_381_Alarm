@@ -83,7 +83,6 @@ section, footer, header, aside{
 }
 
 #clock:after{
-	content:'';
 	position:absolute;
 	width:400px;
 	height:20px;
