@@ -1,14 +1,15 @@
 /*-------------------------
 	Simple reset
 --------------------------*/
-
-
 *{
 	margin:0;
 	padding:0;
 }
 
+<<<<<<< HEAD
 }
+=======
+>>>>>>> 56095243a6e83efd2de82c3dd708a8b37c971fa6
 /*-------------------------
 	General Styles
 --------------------------*/
@@ -56,7 +57,6 @@ section, footer, header, aside{
 	display: block;
 }
 
-
 /*-------------------------
 	The clocks
 --------------------------*/
@@ -65,15 +65,32 @@ section, footer, header, aside{
 /* CSS Document */
 
 
-
 #clock{
+<<<<<<< HEAD
 	width: 100%;
+=======
+<<<<<<< HEAD
+	width: 81%;
+=======
+	width: 370px;
+	padding:40px;
+	margin:200px auto 60px;
+>>>>>>> b2be728b116cdb46ae825199997eb801e0c77d38
+>>>>>>> 56095243a6e83efd2de82c3dd708a8b37c971fa6
 	position:relative;
 	padding: 50% 0em 0em 2em;
 }
 
 #clock:after{
+<<<<<<< HEAD
 	/*position:absolute;*/
+=======
+<<<<<<< HEAD
+	/*position:absolute;*/
+=======
+	position:absolute;
+>>>>>>> b2be728b116cdb46ae825199997eb801e0c77d38
+>>>>>>> 56095243a6e83efd2de82c3dd708a8b37c971fa6
 	width:400px;
 	height:20px;
 	border-radius:100%;
@@ -127,7 +144,6 @@ section, footer, header, aside{
 /*-------------------------
 	The Digits
 --------------------------*/
-
 
 #clock .digits div{
 	text-align:left;
@@ -404,12 +420,15 @@ a.button:hover{
 .alarm-button{
 	width: 92px;
 	height: 22px;
+<<<<<<< HEAD
 /*	left: -46px;*/
 	/*
 	vertical-align: middle;
 	margin-left: -6px;
 	margin-right: -44px;
 	*/
+=======
+>>>>>>> 56095243a6e83efd2de82c3dd708a8b37c971fa6
 	display: inline-block;
 	background: url('../img/alarm_btn.png');
 	position: relative;

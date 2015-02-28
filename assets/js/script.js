@@ -163,12 +163,17 @@ $(function(){
 		if(h < 400){
 			clock.velocity({translateY: -200}, 300);
 			adTop = 10;
-			console.log("changed adtop");
 		}else{
 			clock.velocity({translateY: 0}, 300);
 		}
 
 		dialog.css({top: adTop});
+
+		/*
+		var tuHeight = 375 //time-is-up height
+		if(h < tuHeight) tuHeight = h;
+		time_is_up.css({height: tuHeight});
+		*/
 	};
 
 	//When you flip the phone
@@ -293,6 +298,14 @@ $(function(){
 
 	time_is_up.click(function(){
 		time_is_up.fadeOut();
+	});
+
+	$('body').on("swipeup", function(){
+		if(alarmbox) alarm_box.trigger('hide');
+	});
+
+	$('body').on("swipedown", function(){
+		if(!alarmbox) alarm_box.trigger('show');
 	});
 
 	// Custom events to keep the code clean
