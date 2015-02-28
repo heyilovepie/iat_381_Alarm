@@ -143,11 +143,13 @@ $(function(){
 
 	})();
 
+	//When you flip the phone
+	$( window ).resize(function(){
+		h = $(window).height();
+		w = $(window).width();
 
-
-
-
-	
+		alarm_box.css({ top: h - 50 });
+	});
 
 	// Switch the theme
 
@@ -233,7 +235,7 @@ $(function(){
 
 	// Custom events to keep the code clean
 	dialog.on('hide',function(){
-		alarm_box.trigger('close');
+		alarm_box.trigger('hide');
 		clock.velocity({translateY: 0}, 300);
 
 		dialog.fadeOut();

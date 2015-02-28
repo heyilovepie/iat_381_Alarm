@@ -76,7 +76,7 @@ section, footer, header, aside{
 
 
 #clock{
-	width:370px;
+	width: 100%;
 	padding:40px;
 	margin:200px auto 60px;
 	position:relative;
