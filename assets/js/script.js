@@ -42,48 +42,6 @@ $(function(){
 
 	var digit_holder = clock.find('.digits');
 
-	function configure(){
-		h = $(window).height();
-		w = $(window).width();
-
-		alarm_box.css({ top: h - 50 });
-
-		var padding_left = parseFloat(clock.css("padding-left").split("px"));
-		var padding_right = parseFloat(clock.css("padding-right").split("px"));
-		var padding = padding_right + padding_left;
-		var cWidth = 370 - padding;
-		var left = w /2 - cWidth/2 + padding_left;
-		if(w < 370){
-			cWidth = w - padding;
-			left = 0;
-		}
-		clock.css({ width: cWidth});
-		clock.css({ left: left});
-
-		var dTop = 200; // dialogue top
-		var dHeight = 375; //dialog height
-		var saPadding = 50; //"set alarm" padding (#alarm-dialog h2)
-		if(h < 400){
-			clock_move_1 = .2;
-			clock_move_2 = clock_move_1;
-			dTop = 10;
-			dHeight = h - dTop * 2;
-			saPadding = 30;
-		}
-		else{
-			clock_move_2 = .2;
-			clock_move_1 = clock_move_2 * .4;
-		}
-		dialog.css({top: dTop});
-		dialog.css({height: dHeight});
-		time_is_up.css({top: dTop});
-		$("#alarm-dialog h2").css({"padding-top": saPadding});
-		$("#alarm-dialog h2").css({"padding-bottom": saPadding});
-	};
-
-	$( window ).resize(configure); //When you flip the phone configure it
-	configure(); //configure it at the start
-
 	$.each(positions, function(){
 
 		if(this == ':'){
@@ -117,9 +75,79 @@ $(function(){
 
 	var weekdays = clock.find('.weekdays span');
 
+	function pxToFloat(PX){
+		return parseFloat(PX.split("px"));
+	}
+
+	function configure(){
+		//widow dimentions
+		h = $(window).height();
+		w = $(window).width();
+
+		//keep the footer at the bottom
+		alarm_box.css({ top: h - 50 });
+
+		//width constrained elements
+		var padding_left = pxToFloat(clock.css("padding-left"));
+		var padding_right = pxToFloat(clock.css("padding-right"));
+		var padding = padding_right + padding_left;
+		var cWidth = 370 - padding;
+		var left = w /2 - cWidth/2 + padding_left;
+		if(w < 370){
+			cWidth = w - padding;
+			left = 0;
+		}
+		clock.css({ width: cWidth});
+		clock.css({ left: left});
+
+		//height constrained elements
+		var dTop = 200; // dialogue top
+		var dHeight = 375; //dialog height
+		var saPadding = 50; //"set alarm" padding (#alarm-dialog h2)
+		if(h < 400){
+			clock_move_1 = .2;
+			clock_move_2 = clock_move_1;
+			dTop = 10;
+			dHeight = h - dTop * 2;
+			saPadding = 30;
+		}
+		else{
+			clock_move_2 = .2;
+			clock_move_1 = clock_move_2 * .4;
+		}
+		dialog.css({top: dTop});
+		dialog.css({height: dHeight});
+		time_is_up.css({top: dTop});
+		$("#alarm-dialog h2").css({"padding-top": saPadding});
+		$("#alarm-dialog h2").css({"padding-bottom": saPadding});
+
+		//other constraints
+		var dWidth = pxToFloat(dialog.css("width")); //Dialog width
+		var adc = $("#alarm-dialog .close"); //the close button on dialog
+		var adcRight = 10;
+		if ( dWidth > w ) { //if the width is wider than the screen so the close is not visible
+			adcRight = dWidth/2 - w/2 + 10; //make the close be 10px from edge
+		}
+		adc.css({ right: adcRight});
+	};
+
+	function breakTime(time){
+		var break_time = [0, 0, 0];
+		break_time[0] = Math.floor(time/3600);
+		time = time%3600;
+
+		break_time[1] = Math.floor(time/60);
+		time = time%60;
+
+		break_time[2]=time;
+
+		return break_time;
+	}
+
+	$( window ).resize(configure); //When you flip the phone configure it
+	configure(); //configure it at the start
 
 	// Run a timer every second and update the clock
-
 	(function update_time(){
 
 		// Use moment.js to output the current time as a string
@@ -181,6 +209,7 @@ $(function(){
 			}
 		}
 
+		//check to see if you have the alarm icon on or not
 		if( alarms_active > 0 ){ 
 			alarm.addClass('active');
 		} else {
@@ -209,6 +238,7 @@ $(function(){
 	});
 
 	$('.alarm-button').click(function(e){
+		$(this).addClass("active");
 		var theID = e.target.id;
 		if(theID == "new"){
 			//find out which alarm it is
@@ -227,15 +257,12 @@ $(function(){
 				if ( current_alarm > alarm_counter.length -1 ) current_alarm = 0;
 				alarm_counter[current_alarm] = -1;
 			}
-
-			console.log("Current alarm is " + current_alarm);
 			/////////////////////////////////////////////////////
 		}
 		else{
 			current_alarm = parseFloat( theID );
 		}
 
-		console.log(current_alarm);
 		// Show the dialog
  		dialog_p.trigger('show');		
  		clock.velocity({translateY: - h * clock_move_2}, 300);	
@@ -295,22 +322,11 @@ $(function(){
 	});
 
 	alarm_clear.click(function(){
-		alarm_counter[current_alarm] = -1;
+		alarm_counter[current_alarm] = -1; //reset alarm
 		dialog_p.trigger('hide');
+		//find the id matching the current alarm and remove active from its parent object
+		$("#" + String(current_alarm)).parent().removeClass("active"); 
 	});
-
-	function breakTime(time){
-		var break_time = [0, 0, 0];
-		break_time[0] = Math.floor(time/3600);
-		time = time%3600;
-
-		break_time[1] = Math.floor(time/60);
-		time = time%60;
-
-		break_time[2]=time;
-
-		return break_time;
-	}
 
 	// Custom events to keep the code clean
 	dialog_p.on('hide',function(){
