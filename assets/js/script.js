@@ -6,15 +6,14 @@ $(function(){
 		clock = $('#clock'),
 		alarm = clock.find('.alarm'),
 		ampm = clock.find('.ampm'),
-		dialog = $('#alarm-dialog').parent(),
+		dialog = $('#alarm-dialog'),
+		dialog_p = dialog.parent(),
 		alarm_set = $('#alarm-set'),
 		alarm_clear = $('#alarm-clear'),
 		alarm_box = $('#alarm-box'),
-		time_is_up = $('#time-is-up').parent();
+		time_is_up = $('#time-is-up'),
+		time_is_up_p = time_is_up.parent(),
 		alarmbox = false;
-
-	//makes the alarm box start off 50 px from the bottom
-	alarm_box.css({ top: h - 50 });
 
 	// This will hold the number of seconds left
 	// until the alarm should go off
@@ -120,7 +119,7 @@ $(function(){
 		}
 		else if(alarm_counter == 0){
 
-			time_is_up.fadeIn();
+			time_is_up_p.fadeIn();
 
 			// Play the alarm sound. This will fail
 			// in browsers which don't support HTML5 audio
@@ -199,24 +198,24 @@ $(function(){
 
 	$('#new-alarm-button').click(function(){
 		// Show the dialog
-		dialog.trigger('show');
+		dialog_p.trigger('show');
 		clock.velocity({translateY: -200}, 300);
 	});
 
 	dialog.find('.close').click(function(){
 
-		dialog.trigger('hide')
+		dialog_p.trigger('hide')
 	});
 
-	dialog.click(function(e){
+	dialog_p.click(function(e){
 
 		// When the overlay is clicked, 
-		// hide the dialog.
+		// hide the dialog_p.
 
 		if($(e.target).is('.overlay')){
 			// This check is need to prevent
 			// bubbled up events from hiding the dialog
-			dialog.trigger('hide');
+			dialog_p.trigger('hide');
 		}
 	});
 
@@ -254,19 +253,19 @@ $(function(){
 		}
 
 		alarm_counter = after;
-		dialog.trigger('hide');
+		dialog_p.trigger('hide');
 	});
 
 	alarm_clear.click(function(){
 		alarm_counter = -1;
-		dialog.trigger('hide');
+		dialog_p.trigger('hide');
 	});
 
 	// Custom events to keep the code clean
-	dialog.on('hide',function(){
+	dialog_p.on('hide',function(){
 		alarm_box.trigger('hide');
 		if ( h > 400 ) clock.velocity({translateY: 0}, 300);
-		dialog.fadeOut();
+		dialog_p.fadeOut();
 
 	}).on('show',function(){
 
@@ -290,14 +289,14 @@ $(function(){
 		}
 
 		// Update the input fields
-		dialog.find('input').eq(0).val(hours).end().eq(1).val(minutes).end().eq(2).val(seconds);
+		dialog_p.find('input').eq(0).val(hours).end().eq(1).val(minutes).end().eq(2).val(seconds);
 
-		dialog.fadeIn();
+		dialog_p.fadeIn();
 
 	});
 
 	time_is_up.click(function(){
-		time_is_up.fadeOut();
+		time_is_up_p.fadeOut();
 	});
 
 	$('body').on("swipeup", function(){
