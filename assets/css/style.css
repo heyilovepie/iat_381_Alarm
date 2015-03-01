@@ -46,8 +46,8 @@ html, body {
 }
 
 a, a:visited {
-	outline:none;
-	color:#389dc1;
+	/*outline:none;*/
+	/*color:#389dc1;*/
 }
 
 a:hover{
@@ -74,12 +74,10 @@ section, footer, header, aside{
 	width: 81%;
 =======
 	width: 370px;
-	padding:40px;
-	margin:200px auto 60px;
 >>>>>>> b2be728b116cdb46ae825199997eb801e0c77d38
 >>>>>>> 56095243a6e83efd2de82c3dd708a8b37c971fa6
 	position:relative;
-	padding: 50% 0em 0em 2em;
+	padding: 50% 0% 0% 4% !important;
 }
 
 #clock:after{
@@ -385,7 +383,6 @@ section, footer, header, aside{
 		Button
 --------------------------*/
 
-
 .button-holder{
 	width:100%;
 	text-align:center;
@@ -432,7 +429,7 @@ a.button:hover{
 	/*background-color: #ffffff;*/
 	border-radius:6px;
 	background-color:#373636;
-	padding: 0em 0em 0em 1em;
+	padding: 0em 0em 0em 0em;
 }
 
 /*-------------------------
@@ -561,7 +558,7 @@ input::-webkit-inner-spin-button {
 	width: 100%;
 	height: 100%;
 	font: normal 16px Arial, Helvetica, sans-serif;
-	padding: 1em 0em 0em 0.5em;
+	padding: 1em 0em 0em 0.75em;
 	position: fixed;
 
 	background-color:#1f1f1f;
@@ -571,7 +568,6 @@ input::-webkit-inner-spin-button {
 	background-image:linear-gradient(top, #1f1f1f, #101010);
 */
 	border-radius:2px 2px 0 0;
-
 	box-shadow: 0 -1px 4px rgba(0,0,0,0.4);
 	z-index:1;
 }
@@ -580,7 +576,7 @@ footer h2{
 	text-transform: uppercase;
 	font-size:18px;
 	color:#DBDFE5;
-	padding: 1em 0em;
+	padding: 1em;
 }
 
 footer a.tz{
