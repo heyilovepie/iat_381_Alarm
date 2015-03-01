@@ -14,7 +14,8 @@ $(function(){
 		time_is_up = $('#time-is-up'),
 		time_is_up_p = time_is_up.parent(),
 		alarmbox = false,
-		clock_move = .2;
+		clock_move_1 = .1;
+		clock_move_2 = .2;
 
 	var alarm_counter = [-1, -1, -1]; //the counters for the 3 alarms
 	var current_alarm = 0; //the current location of the alarm
@@ -154,11 +155,13 @@ $(function(){
 
 		var adTop = 200; //alarm_dialogue top
 		if(h < 400){
-			clock_move = .1;
+			clock_move_1 = .2;
+			clock_move_2 = clock_move_1;
 			adTop = 10;
 		}
 		else{
-			clock_move = .2;
+			clock_move_2 = .2;
+			clock_move_1 = clock_move_2 * .4;
 		}
 		dialog.css({top: adTop});
 		time_is_up.css({top: adTop});
@@ -180,8 +183,14 @@ $(function(){
 	$('.alarm-button').click(function(){
 		if(alarmbox){
 			alarm_box.trigger('hide');
+			setTimeout(function(){
+				clock.velocity({translateY: 0}, 300);
+			}, 100);
 		}else{
 			alarm_box.trigger('show');
+			setTimeout(function(){
+				clock.velocity({translateY: - h * clock_move_1}, 300);
+			}, 75);
 		}
 	});
 
@@ -208,7 +217,7 @@ $(function(){
 
 		// Show the dialog
  		dialog_p.trigger('show');		
- 		clock.velocity({translateY: - h * clock_move}, 300);	
+ 		clock.velocity({translateY: - h * clock_move_2}, 300);	
 	});
 
 	dialog.find('.close').click(function(){
