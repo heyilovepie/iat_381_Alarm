@@ -196,10 +196,7 @@ $(function(){
 	});
 
 	$('#new-alarm-button').click(function(){
-		// Show the dialog
-		dialog.trigger('show');
-		clock.velocity({translateY: -200}, 300);
-
+		//make a new alarm or override the oldest one
 		var made_alarm = false;
 		for(var i = 0; i < alarm_counter.length; i++){
 			if(alarm_counter[i] == -1){
@@ -210,11 +207,18 @@ $(function(){
 		}
 
 		/////////////Change this to allow choice? ////////////
-		if(!made_alarm){ //if you have made 3 alarms then override the first one
-			current_alarm = 0;
+		if(!made_alarm){ //if you have made 3 alarms then override the one you made first
+			current_alarm++;
+			if ( current_alarm > alarm_counter.length - 1 ) current_alarm = 0;
 			alarm_counter[current_alarm] = -1;
 		}
 		/////////////////////////////////////////////////////
+
+		console.log("the current alarm is " + current_alarm)
+
+		// Show the dialog
+		dialog.trigger('show');
+		clock.velocity({translateY: -200}, 300);
 	});
 
 	dialog.find('.close').click(function(){
@@ -276,6 +280,19 @@ $(function(){
 		dialog.trigger('hide');
 	});
 
+	var breakTime = function(time){
+		var break_time = [0, 0, 0];
+		break_time[0] = Math.floor(time/3600);
+		time = time%3600;
+
+		break_time[1] = Math.floor(time/60);
+		time = time%60;
+
+		break_time[2]=time;
+
+		return break_time;
+	}
+
 	// Custom events to keep the code clean
 	dialog.on('hide',function(){
 		alarm_box.trigger('hide');
@@ -286,21 +303,19 @@ $(function(){
 
 		// Calculate how much time is left for the alarm to go off.
 
-		var hours = 0, minutes = 0, seconds = 0, tmp = 0;
+		var hours = 0, minutes = 0, seconds = 0; time_left = 0;
 
-		if(alarm_counter[current_alarm] > 0){
-			
+		if(alarm_counter[current_alarm] > 0){ //if the alarm is still going
+			console.log("meow");
 			// There is an alarm set, calculate the remaining time
-
-			tmp = alarm_counter[current_alarm];
-
-			hours = Math.floor(tmp/3600);
-			tmp = tmp%3600;
-
-			minutes = Math.floor(tmp/60);
-			tmp = tmp%60;
-
-			seconds = tmp;
+			time_left = breakTime(alarm_counter[current_alarm]);
+			hours = time_left[0];
+			minutes = time_left[1];
+			seconds = time_left[2];
+		}else{ //if you have not set the alarm
+			hours = 0;
+			minutes = 0;
+			seconds = 0;
 		}
 
 		// Update the input fields
