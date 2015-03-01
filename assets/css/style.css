@@ -4,6 +4,7 @@
 *{
 	margin:0;
 	padding:0;
+	min-height: 0 !important;
 }
 
 <<<<<<< HEAD
@@ -388,7 +389,7 @@ section, footer, header, aside{
 .button-holder{
 	width:100%;
 	text-align:center;
-	padding-bottom: 1em;
+	padding-bottom: 2em;
 }
 
 a.button{
@@ -418,22 +419,12 @@ a.button:hover{
 }
 
 .alarm-button{
-	width: 92px;
-	height: 22px;
-<<<<<<< HEAD
-/*	left: -46px;*/
-	/*
-	vertical-align: middle;
-	margin-left: -6px;
-	margin-right: -44px;
-	*/
-=======
->>>>>>> 56095243a6e83efd2de82c3dd708a8b37c971fa6
-	display: inline-block;
-	background: url('../img/alarm_btn.png');
 	position: relative;
-	z-index: 0;
-	cursor: pointer;
+	background-color: #e7e7e7;
+	text-align: center;
+	padding: 0.5em 1em;
+	border-radius: 5px;
+	color: #000;
 }
 
 #new-alarm-button{
@@ -569,7 +560,6 @@ input::-webkit-inner-spin-button {
 #alarm-box{
 	width: 100%;
 	height: 100%;
-	top: 95%;
 	font: normal 16px Arial, Helvetica, sans-serif;
 	padding: 1em 0em 0em 0.5em;
 	position: fixed;

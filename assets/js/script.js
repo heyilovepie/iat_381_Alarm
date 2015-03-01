@@ -1,22 +1,24 @@
 $(function(){
 
-	var 
+	var z
 		h = $(window).height(),
 		w = $(window).width(),
 		clock = $('#clock'),
 		alarm = clock.find('.alarm'),
 		ampm = clock.find('.ampm'),
-		dialog = $('#alarm-dialog'),
-		dialog_p = dialog.parent(),
+		dialog = $('#alarm-dialog').parent(),
 		alarm_set = $('#alarm-set'),
 		alarm_clear = $('#alarm-clear'),
 		alarm_box = $('#alarm-box'),
-		time_is_up = $('#time-is-up'),
-		time_is_up_p = time_is_up.parent()
+		time_is_up = $('#time-is-up').parent();
 		alarmbox = false;
 
-	var alarm_counter = [-1, -1, -1]; //the counters for the 3 alarms
-	var current_alarm = 0; //the current location of the alarm
+	//makes the alarm box start off 50 px from the bottom
+	alarm_box.css({ top: h - 50 });
+
+	// This will hold the number of seconds left
+	// until the alarm should go off
+	var alarm_counter = -1;
 
 	// Map digits to their names (this will be an array)
 	var digit_to_name = 'zero one two three four five six seven eight nine'.split(' ');
@@ -107,38 +109,36 @@ $(function(){
 
 
 		// Is there an alarm set?
-		var alarms_active = 0;
-		for(var i = 0; i < alarm_counter.length; i++){
-			if(alarm_counter[i] > 0){
-				
-				// Decrement the counter with one second
-				alarm_counter[i]--;
-				alarms_active++;
-			}
-			else if(alarm_counter[i] == 0){
 
-				time_is_up_p.fadeIn();
+		if(alarm_counter > 0){
+			
+			// Decrement the counter with one second
+			alarm_counter--;
 
-				// Play the alarm sound. This will fail
-				// in browsers which don't support HTML5 audio
-
-				try{
-					$('#alarm-ring')[0].play();
-				}
-				catch(e){}
-				
-				alarm_counter[i]--;
-				alarms_active++;
-			}
-		}
-
-		if( alarms_active > 0 ){ 
+			// Activate the alarm icon
 			alarm.addClass('active');
-		} else {
+		}
+		else if(alarm_counter == 0){
+
+			time_is_up.fadeIn();
+
+			// Play the alarm sound. This will fail
+			// in browsers which don't support HTML5 audio
+
+			try{
+				$('#alarm-ring')[0].play();
+			}
+			catch(e){}
+			
+			alarm_counter--;
+			alarm.removeClass('active');
+		}
+		else{
+			// The alarm has been cleared
 			alarm.removeClass('active');
 		}
 
-			// Schedule this function to be run again in 1 sec
+		// Schedule this function to be run again in 1 sec
 		setTimeout(update_time, 1000);
 
 	})();
@@ -172,7 +172,7 @@ $(function(){
 		/*
 		var tuHeight = 375 //time-is-up height
 		if(h < tuHeight) tuHeight = h;
-		time_is_up_p.css({height: tuHeight});
+		time_is_up.css({height: tuHeight});
 		*/
 	};
 
@@ -198,45 +198,25 @@ $(function(){
 	});
 
 	$('#new-alarm-button').click(function(){
-		//make a new alarm or override the oldest one
-		var made_alarm = false;
-		for(var i = 0; i < alarm_counter.length; i++){
-			if(alarm_counter[i] == -1){
-				current_alarm = i; //specify which alarm you are making 
-				made_alarm = true;
-				break;
-			}
-		}
-
-		/////////////Change this to allow choice? ////////////
-		if(!made_alarm){ //if you have made 3 alarms then override the one you made first
-			current_alarm++;
-			if ( current_alarm > alarm_counter.length - 1 ) current_alarm = 0;
-			alarm_counter[current_alarm] = -1;
-		}
-		/////////////////////////////////////////////////////
-
-		console.log("the current alarm is " + current_alarm)
-
 		// Show the dialog
-		dialog_p.trigger('show');
+		dialog.trigger('show');
 		clock.velocity({translateY: -200}, 300);
 	});
 
-	dialog_p.find('.close').click(function(){
+	dialog.find('.close').click(function(){
 
-		dialog_p.trigger('hide')
+		dialog.trigger('hide')
 	});
 
-	dialog_p.click(function(e){
+	dialog.click(function(e){
 
 		// When the overlay is clicked, 
-		// hide the dialog_p.
+		// hide the dialog.
 
 		if($(e.target).is('.overlay')){
 			// This check is need to prevent
 			// bubbled up events from hiding the dialog
-			dialog_p.trigger('hide');
+			dialog.trigger('hide');
 		}
 	});
 
@@ -245,7 +225,7 @@ $(function(){
 		var valid = true, after = 0,
 			to_seconds = [3600, 60, 1];
 
-		dialog_p.find('input').each(function(i){
+		dialog.find('input').each(function(i){
 
 			// Using the validity property in HTML5-enabled browsers:
 
@@ -273,62 +253,51 @@ $(function(){
 			return;	
 		}
 
-		alarm_counter[current_alarm] = after;
-		dialog_p.trigger('hide');
+		alarm_counter = after;
+		dialog.trigger('hide');
 	});
 
 	alarm_clear.click(function(){
-		alarm_counter[current_alarm] = -1;
-		dialog_p.trigger('hide');
+		alarm_counter = -1;
+		dialog.trigger('hide');
 	});
 
-	var breakTime = function(time){
-		var break_time = [0, 0, 0];
-		break_time[0] = Math.floor(time/3600);
-		time = time%3600;
-
-		break_time[1] = Math.floor(time/60);
-		time = time%60;
-
-		break_time[2]=time;
-
-		return break_time;
-	}
-
 	// Custom events to keep the code clean
-	dialog_p.on('hide',function(){
+	dialog.on('hide',function(){
 		alarm_box.trigger('hide');
 		if ( h > 400 ) clock.velocity({translateY: 0}, 300);
-		dialog_p.fadeOut();
+		dialog.fadeOut();
 
 	}).on('show',function(){
 
 		// Calculate how much time is left for the alarm to go off.
 
-		var hours = 0, minutes = 0, seconds = 0; time_left = 0;
+		var hours = 0, minutes = 0, seconds = 0, tmp = 0;
 
-		if(alarm_counter[current_alarm] > 0){ //if the alarm is still going
-			console.log("meow");
+		if(alarm_counter > 0){
+			
 			// There is an alarm set, calculate the remaining time
-			time_left = breakTime(alarm_counter[current_alarm]);
-			hours = time_left[0];
-			minutes = time_left[1];
-			seconds = time_left[2];
-		}else{ //if you have not set the alarm
-			hours = 0;
-			minutes = 0;
-			seconds = 0;
+
+			tmp = alarm_counter;
+
+			hours = Math.floor(tmp/3600);
+			tmp = tmp%3600;
+
+			minutes = Math.floor(tmp/60);
+			tmp = tmp%60;
+
+			seconds = tmp;
 		}
 
 		// Update the input fields
-		dialog_p.find('input').eq(0).val(hours).end().eq(1).val(minutes).end().eq(2).val(seconds);
+		dialog.find('input').eq(0).val(hours).end().eq(1).val(minutes).end().eq(2).val(seconds);
 
-		dialog_p.fadeIn();
+		dialog.fadeIn();
 
 	});
 
 	time_is_up.click(function(){
-		time_is_up_p.fadeOut();
+		time_is_up.fadeOut();
 	});
 
 	$('body').on("swipeup", function(){
