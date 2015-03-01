@@ -60,18 +60,25 @@ $(function(){
 		clock.css({ width: cWidth});
 		clock.css({ left: left});
 
-		var adTop = 200; //alarm_dialogue top
+		var dTop = 200; // dialogue top
+		var dHeight = 375; //dialog height
+		var saPadding = 50; //"set alarm" padding (#alarm-dialog h2)
 		if(h < 400){
 			clock_move_1 = .2;
 			clock_move_2 = clock_move_1;
-			adTop = 10;
+			dTop = 10;
+			dHeight = h - dTop * 2;
+			saPadding = 30;
 		}
 		else{
 			clock_move_2 = .2;
 			clock_move_1 = clock_move_2 * .4;
 		}
-		dialog.css({top: adTop});
-		time_is_up.css({top: adTop});
+		dialog.css({top: dTop});
+		dialog.css({height: dHeight});
+		time_is_up.css({top: dTop});
+		$("#alarm-dialog h2").css({"padding-top": saPadding});
+		$("#alarm-dialog h2").css({"padding-bottom": saPadding});
 	};
 
 	$( window ).resize(configure); //When you flip the phone configure it
@@ -160,6 +167,8 @@ $(function(){
 			}
 			else if(alarm_counter[i] >= 0){
 				time_is_up_p.fadeIn();
+				clock.velocity({translateY: - h * clock_move_2}, 300);
+
 				alarm_counter[i] = -1;
 				alarms_active++;
 
@@ -306,8 +315,14 @@ $(function(){
 	// Custom events to keep the code clean
 	dialog_p.on('hide',function(){
 		alarm_box.trigger('hide');
-		clock.velocity({translateY: 0}, 300);
 		dialog_p.fadeOut();
+
+		if(alarmbox){
+			clock.velocity({translateY: - h * clock_move_1}, 300);
+		}
+		else{
+			clock.velocity({translateY: 0}, 300);
+		}
 
 	}).on('show',function(){
 
@@ -332,6 +347,12 @@ $(function(){
 
 	time_is_up.click(function(){
 		time_is_up_p.fadeOut();
+		if(alarmbox){
+			clock.velocity({translateY: - h * clock_move_1}, 300);
+		}
+		else{
+			clock.velocity({translateY: 0}, 300);
+		}
 	});
 
 	$('body').on("swipeup", function(){

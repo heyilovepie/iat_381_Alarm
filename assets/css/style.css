@@ -446,6 +446,7 @@ input::-webkit-inner-spin-button {
 
 #alarm-dialog, 
 #time-is-up{
+	/* top and height changed in the configure script */
 	width:500px;
 	height:375px;
 	background-color:#FFF;
@@ -460,6 +461,7 @@ input::-webkit-inner-spin-button {
 }
 
 #alarm-dialog h2{
+	/* padding size changed in configure script */
 	text-transform: uppercase;
 	font-size:18px;
 	color:#5e6268;
