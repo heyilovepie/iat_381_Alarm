@@ -200,7 +200,7 @@ $(function(){
 
 	// Handle setting and clearing alarms
 
-	$('.alarm-button').click(function(){
+	$('.alarm-toggle').click(function(){
 		if(alarmbox){
 			alarm_box.trigger('hide');
 		}else{
@@ -208,27 +208,34 @@ $(function(){
 		}
 	});
 
-	$('#new-alarm-button').click(function(){	 
-		//find out which alarm it is
-		var made_alarm = false;
-		for(var i = 0; i < alarm_counter.length; i++){
-			if(alarm_counter[i] == -1){
-				current_alarm = i; //specify which alarm you are making 
-				made_alarm = true;
-				break;
+	$('.alarm-button').click(function(e){
+		var theID = e.target.id;
+		if(theID == "new"){
+			//find out which alarm it is
+			var made_alarm = false;
+			for(var i = 0; i < alarm_counter.length; i++){
+				if(alarm_counter[i] == -1){
+					current_alarm = i; //specify which alarm you are making 
+					made_alarm = true;
+					break;
+				}
 			}
+
+			/////////////Change this to allow choice? ////////////
+			if ( !made_alarm ){ //if you have made 3 alarms then override the oldest one
+				current_alarm ++;
+				if ( current_alarm > alarm_counter.length -1 ) current_alarm = 0;
+				alarm_counter[current_alarm] = -1;
+			}
+
+			console.log("Current alarm is " + current_alarm);
+			/////////////////////////////////////////////////////
+		}
+		else{
+			current_alarm = parseFloat( theID );
 		}
 
-		/////////////Change this to allow choice? ////////////
-		if ( !made_alarm ){ //if you have made 3 alarms then override the oldest one
-			current_alarm ++;
-			if ( current_alarm > alarm_counter.length -1 ) current_alarm = 0;
-			alarm_counter[current_alarm] = -1;
-		}
-
-		console.log("Current alarm is " + current_alarm);
-		/////////////////////////////////////////////////////
-
+		console.log(current_alarm);
 		// Show the dialog
  		dialog_p.trigger('show');		
  		clock.velocity({translateY: - h * clock_move_2}, 300);	
@@ -243,7 +250,6 @@ $(function(){
 
 		// When the overlay is clicked, 
 		// hide the dialog_p.
-
 		if($(e.target).is('.overlay')){
 			// This check is need to prevent
 			// bubbled up events from hiding the dialog
