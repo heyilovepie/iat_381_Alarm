@@ -6,11 +6,13 @@ $(function(){
 		clock = $('#clock'),
 		alarm = clock.find('.alarm'),
 		ampm = clock.find('.ampm'),
-		dialog = $('#alarm-dialog').parent(),
+		dialog = $('#alarm-dialog'),
+		dialog_p = dialog.parent(),
 		alarm_set = $('#alarm-set'),
 		alarm_clear = $('#alarm-clear'),
 		alarm_box = $('#alarm-box'),
-		time_is_up = $('#time-is-up').parent();
+		time_is_up = $('#time-is-up'),
+		time_is_up_p = time_is_up.parent()
 		alarmbox = false;
 
 	var alarm_counter = [-1, -1, -1]; //the counters for the 3 alarms
@@ -115,7 +117,7 @@ $(function(){
 			}
 			else if(alarm_counter[i] == 0){
 
-				time_is_up.fadeIn();
+				time_is_up_p.fadeIn();
 
 				// Play the alarm sound. This will fail
 				// in browsers which don't support HTML5 audio
@@ -170,7 +172,7 @@ $(function(){
 		/*
 		var tuHeight = 375 //time-is-up height
 		if(h < tuHeight) tuHeight = h;
-		time_is_up.css({height: tuHeight});
+		time_is_up_p.css({height: tuHeight});
 		*/
 	};
 
@@ -217,24 +219,24 @@ $(function(){
 		console.log("the current alarm is " + current_alarm)
 
 		// Show the dialog
-		dialog.trigger('show');
+		dialog_p.trigger('show');
 		clock.velocity({translateY: -200}, 300);
 	});
 
-	dialog.find('.close').click(function(){
+	dialog_p.find('.close').click(function(){
 
-		dialog.trigger('hide')
+		dialog_p.trigger('hide')
 	});
 
-	dialog.click(function(e){
+	dialog_p.click(function(e){
 
 		// When the overlay is clicked, 
-		// hide the dialog.
+		// hide the dialog_p.
 
 		if($(e.target).is('.overlay')){
 			// This check is need to prevent
 			// bubbled up events from hiding the dialog
-			dialog.trigger('hide');
+			dialog_p.trigger('hide');
 		}
 	});
 
@@ -243,7 +245,7 @@ $(function(){
 		var valid = true, after = 0,
 			to_seconds = [3600, 60, 1];
 
-		dialog.find('input').each(function(i){
+		dialog_p.find('input').each(function(i){
 
 			// Using the validity property in HTML5-enabled browsers:
 
@@ -272,12 +274,12 @@ $(function(){
 		}
 
 		alarm_counter[current_alarm] = after;
-		dialog.trigger('hide');
+		dialog_p.trigger('hide');
 	});
 
 	alarm_clear.click(function(){
 		alarm_counter[current_alarm] = -1;
-		dialog.trigger('hide');
+		dialog_p.trigger('hide');
 	});
 
 	var breakTime = function(time){
@@ -294,10 +296,10 @@ $(function(){
 	}
 
 	// Custom events to keep the code clean
-	dialog.on('hide',function(){
+	dialog_p.on('hide',function(){
 		alarm_box.trigger('hide');
 		if ( h > 400 ) clock.velocity({translateY: 0}, 300);
-		dialog.fadeOut();
+		dialog_p.fadeOut();
 
 	}).on('show',function(){
 
@@ -319,14 +321,14 @@ $(function(){
 		}
 
 		// Update the input fields
-		dialog.find('input').eq(0).val(hours).end().eq(1).val(minutes).end().eq(2).val(seconds);
+		dialog_p.find('input').eq(0).val(hours).end().eq(1).val(minutes).end().eq(2).val(seconds);
 
-		dialog.fadeIn();
+		dialog_p.fadeIn();
 
 	});
 
 	time_is_up.click(function(){
-		time_is_up.fadeOut();
+		time_is_up_p.fadeOut();
 	});
 
 	$('body').on("swipeup", function(){
