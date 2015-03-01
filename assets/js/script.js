@@ -15,9 +15,8 @@ $(function(){
 		time_is_up_p = time_is_up.parent(),
 		alarmbox = false;
 
-	// This will hold the number of seconds left
-	// until the alarm should go off
-	var alarm_counter = -1;
+	var alarm_counter = [-1, -1, -1]; //the counters for the 3 alarms
+	var current_alarm = 0; //the current location of the alarm
 
 	// Map digits to their names (this will be an array)
 	var digit_to_name = 'zero one two three four five six seven eight nine'.split(' ');
@@ -108,35 +107,33 @@ $(function(){
 
 
 		// Is there an alarm set?
-
-		if(alarm_counter > 0){
-			
-			// Decrement the counter with one second
-			alarm_counter--;
-
-			// Activate the alarm icon
-			alarm.addClass('active');
-		}
-		else if(alarm_counter == 0){
-
-			time_is_up_p.fadeIn();
-
-			// Play the alarm sound. This will fail
-			// in browsers which don't support HTML5 audio
-
-			try{
-				$('#alarm-ring')[0].play();
+		var alarms_active = 0;
+		for(var i = 0; i < alarm_counter.length; i++){
+			if(alarm_counter[i] >= 1){
+				
+				// Decrement the counter with one second
+				alarm_counter[i]--;
+				alarms_active++;
 			}
-			catch(e){}
-			
-			alarm_counter--;
-			alarm.removeClass('active');
-		}
-		else{
-			// The alarm has been cleared
-			alarm.removeClass('active');
+			else if(alarm_counter[i] >= 0){
+				time_is_up_p.fadeIn();
+				alarm_counter[i] = -1;
+				alarms_active++;
+
+				// Play the alarm sound. This will fail
+				// in browsers which don't support HTML5 audio
+				try{
+					$('#alarm-ring')[0].play();
+				}
+				catch(e){}
+			}
 		}
 
+		if( alarms_active > 0 ){ 
+			alarm.addClass('active');
+		} else {
+			alarm.removeClass('active');
+		}
 		// Schedule this function to be run again in 1 sec
 		setTimeout(update_time, 1000);
 
@@ -196,10 +193,30 @@ $(function(){
 		}
 	});
 
-	$('#new-alarm-button').click(function(){
+	$('#new-alarm-button').click(function(){	 
+		//find out which alarm it is
+		var made_alarm = false;
+		for(var i = 0; i < alarm_counter.length; i++){
+			if(alarm_counter[i] == -1){
+				current_alarm = i; //specify which alarm you are making 
+				made_alarm = true;
+				break;
+			}
+		}
+
+		/////////////Change this to allow choice? ////////////
+		if ( !made_alarm ){ //if you have made 3 alarms then override the oldest one
+			current_alarm ++;
+			if ( current_alarm > alarm_counter.length -1 ) current_alarm = 0;
+			alarm_counter[current_alarm] = -1;
+		}
+
+		console.log("Current alarm is " + current_alarm);
+		/////////////////////////////////////////////////////
+
 		// Show the dialog
-		dialog_p.trigger('show');
-		clock.velocity({translateY: -200}, 300);
+ 		dialog_p.trigger('show');		
+ 		clock.velocity({translateY: -200}, 300);	
 	});
 
 	dialog.find('.close').click(function(){
@@ -252,14 +269,27 @@ $(function(){
 			return;	
 		}
 
-		alarm_counter = after;
+		alarm_counter[current_alarm] = after;
 		dialog_p.trigger('hide');
 	});
 
 	alarm_clear.click(function(){
-		alarm_counter = -1;
+		alarm_counter[current_alarm] = -1;
 		dialog_p.trigger('hide');
 	});
+
+	var breakTime = function(time){
+		var break_time = [0, 0, 0];
+		break_time[0] = Math.floor(time/3600);
+		time = time%3600;
+
+		break_time[1] = Math.floor(time/60);
+		time = time%60;
+
+		break_time[2]=time;
+
+		return break_time;
+	}
 
 	// Custom events to keep the code clean
 	dialog_p.on('hide',function(){
@@ -270,22 +300,15 @@ $(function(){
 	}).on('show',function(){
 
 		// Calculate how much time is left for the alarm to go off.
+		var hours = 0, minutes = 0, seconds = 0;
 
-		var hours = 0, minutes = 0, seconds = 0, tmp = 0;
-
-		if(alarm_counter > 0){
+		if(alarm_counter[current_alarm] > 0){
 			
 			// There is an alarm set, calculate the remaining time
-
-			tmp = alarm_counter;
-
-			hours = Math.floor(tmp/3600);
-			tmp = tmp%3600;
-
-			minutes = Math.floor(tmp/60);
-			tmp = tmp%60;
-
-			seconds = tmp;
+			var time_left = breakTime(alarm_counter[current_alarm]);
+			hours = time_left[0];
+			minutes = time_left[1];
+			seconds = time_left[2];
 		}
 
 		// Update the input fields
