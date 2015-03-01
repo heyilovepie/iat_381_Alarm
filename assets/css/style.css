@@ -67,10 +67,10 @@ section, footer, header, aside{
 
 
 #clock{
+	/* width and left are changed in js */
 	position:absolute;
-	width: 81%;
 	width: 370px;
-	padding: 20px 10px 20px 20px !important;
+	padding: 0px 15px 0px 5px !important;
 	top: 20%;
 }
 

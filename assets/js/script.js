@@ -1,6 +1,7 @@
 $(function(){
 
-	var z
+	//object variables
+	var 
 		h = $(window).height(),
 		w = $(window).width(),
 		clock = $('#clock'),
@@ -12,13 +13,18 @@ $(function(){
 		alarm_clear = $('#alarm-clear'),
 		alarm_box = $('#alarm-box'),
 		time_is_up = $('#time-is-up'),
-		time_is_up_p = time_is_up.parent(),
+		time_is_up_p = time_is_up.parent();
+
+	//movement variables and states
+	var 
 		alarmbox = false,
-		clock_move_1 = .1;
+		clock_move_1 = .1,
 		clock_move_2 = .2;
 
-	var alarm_counter = [-1, -1, -1]; //the counters for the 3 alarms
-	var current_alarm = 0; //the current location of the alarm
+	//alarm variables
+	var
+		alarm_counter = [-1, -1, -1], //the counters for the 3 alarms
+		current_alarm = 0; //the current location of the alarm
 
 	// Map digits to their names (this will be an array)
 	var digit_to_name = 'zero one two three four five six seven eight nine'.split(' ');
@@ -35,6 +41,41 @@ $(function(){
 	// and add them to the clock
 
 	var digit_holder = clock.find('.digits');
+
+	function configure(){
+		h = $(window).height();
+		w = $(window).width();
+
+		alarm_box.css({ top: h - 50 });
+
+		var padding_left = parseFloat(clock.css("padding-left").split("px"));
+		var padding_right = parseFloat(clock.css("padding-right").split("px"));
+		var padding = padding_right + padding_left;
+		var cWidth = 370 - padding;
+		var left = w /2 - cWidth/2 + padding_left;
+		if(w < 370){
+			cWidth = w - padding;
+			left = 0;
+		}
+		clock.css({ width: cWidth});
+		clock.css({ left: left});
+
+		var adTop = 200; //alarm_dialogue top
+		if(h < 400){
+			clock_move_1 = .2;
+			clock_move_2 = clock_move_1;
+			adTop = 10;
+		}
+		else{
+			clock_move_2 = .2;
+			clock_move_1 = clock_move_2 * .4;
+		}
+		dialog.css({top: adTop});
+		time_is_up.css({top: adTop});
+	};
+
+	$( window ).resize(configure); //When you flip the phone configure it
+	configure(); //configure it at the start
 
 	$.each(positions, function(){
 
@@ -140,36 +181,6 @@ $(function(){
 		setTimeout(update_time, 1000);
 
 	})();
-
-	function configure(){
-		h = $(window).height();
-		w = $(window).width();
-
-		alarm_box.css({ top: h - 50 });
-
-		var cWidth = 370 - 80;
-		if(w < 370){
-			cWidth = w - 20;
-		}
-		clock.css({ width: cWidth});
-
-		var adTop = 200; //alarm_dialogue top
-		if(h < 400){
-			clock_move_1 = .2;
-			clock_move_2 = clock_move_1;
-			adTop = 10;
-		}
-		else{
-			clock_move_2 = .2;
-			clock_move_1 = clock_move_2 * .4;
-		}
-		dialog.css({top: adTop});
-		time_is_up.css({top: adTop});
-	};
-
-	//When you flip the phone
-	$( window ).resize(configure);
-	configure();
 
 	// Switch the theme
 
@@ -279,7 +290,7 @@ $(function(){
 		dialog_p.trigger('hide');
 	});
 
-	var breakTime = function(time){
+	function breakTime(time){
 		var break_time = [0, 0, 0];
 		break_time[0] = Math.floor(time/3600);
 		time = time%3600;
