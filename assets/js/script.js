@@ -13,7 +13,8 @@ $(function(){
 		alarm_box = $('#alarm-box'),
 		time_is_up = $('#time-is-up'),
 		time_is_up_p = time_is_up.parent(),
-		alarmbox = false;
+		alarmbox = false,
+		clock_move = .2;
 
 	var alarm_counter = [-1, -1, -1]; //the counters for the 3 alarms
 	var current_alarm = 0; //the current location of the alarm
@@ -146,30 +147,21 @@ $(function(){
 		alarm_box.css({ top: h - 50 });
 
 		var cWidth = 370 - 80;
-		var cPadding = 40;
 		if(w < 370){
-			cPadding = 10;
 			cWidth = w - 20;
 		}
 		clock.css({ width: cWidth});
-		clock.css({ padding: cPadding});
 
 		var adTop = 200; //alarm_dialogue top
-
 		if(h < 400){
-			clock.velocity({translateY: -200}, 300);
+			clock_move = .1;
 			adTop = 10;
-		}else{
-			clock.velocity({translateY: 0}, 300);
 		}
-
+		else{
+			clock_move = .2;
+		}
 		dialog.css({top: adTop});
-
-		/*
-		var tuHeight = 375 //time-is-up height
-		if(h < tuHeight) tuHeight = h;
-		time_is_up.css({height: tuHeight});
-		*/
+		time_is_up.css({top: adTop});
 	};
 
 	//When you flip the phone
@@ -216,7 +208,7 @@ $(function(){
 
 		// Show the dialog
  		dialog_p.trigger('show');		
- 		clock.velocity({translateY: -200}, 300);	
+ 		clock.velocity({translateY: - h * clock_move}, 300);	
 	});
 
 	dialog.find('.close').click(function(){
@@ -294,7 +286,7 @@ $(function(){
 	// Custom events to keep the code clean
 	dialog_p.on('hide',function(){
 		alarm_box.trigger('hide');
-		if ( h > 400 ) clock.velocity({translateY: 0}, 300);
+		clock.velocity({translateY: 0}, 300);
 		dialog_p.fadeOut();
 
 	}).on('show',function(){

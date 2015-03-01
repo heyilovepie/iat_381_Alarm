@@ -67,35 +67,23 @@ section, footer, header, aside{
 
 
 #clock{
-<<<<<<< HEAD
-	width: 100%;
-=======
-<<<<<<< HEAD
+	position:absolute;
 	width: 81%;
-=======
 	width: 370px;
->>>>>>> b2be728b116cdb46ae825199997eb801e0c77d38
->>>>>>> 56095243a6e83efd2de82c3dd708a8b37c971fa6
-	position:relative;
-	padding: 50% 0% 0% 4% !important;
+	padding: 20px 10px 20px 20px !important;
+	top: 20%;
 }
 
 #clock:after{
-<<<<<<< HEAD
-	/*position:absolute;*/
-=======
-<<<<<<< HEAD
-	/*position:absolute;*/
-=======
+	/*
 	position:absolute;
->>>>>>> b2be728b116cdb46ae825199997eb801e0c77d38
->>>>>>> 56095243a6e83efd2de82c3dd708a8b37c971fa6
 	width:400px;
 	height:20px;
 	border-radius:100%;
 	left:50%;
 	bottom:2px;
 	z-index:-1;
+	*/
 }
 
 
