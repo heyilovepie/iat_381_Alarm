@@ -198,19 +198,13 @@ $(function(){
 	});
 
 
-	// Handle setting and clearing alamrs
+	// Handle setting and clearing alarms
 
 	$('.alarm-button').click(function(){
 		if(alarmbox){
 			alarm_box.trigger('hide');
-			setTimeout(function(){
-				clock.velocity({translateY: 0}, 300);
-			}, 100);
 		}else{
 			alarm_box.trigger('show');
-			setTimeout(function(){
-				clock.velocity({translateY: - h * clock_move_1}, 300);
-			}, 75);
 		}
 	});
 
@@ -277,7 +271,7 @@ $(function(){
 				return false;
 			}
 
-			after += to_seconds[i] * parseInt(parseInt(this.value));
+			after += to_seconds[i] * parseInt(this.value);
 		});
 
 		if(!valid){
@@ -316,13 +310,6 @@ $(function(){
 	dialog_p.on('hide',function(){
 		alarm_box.trigger('hide');
 		dialog_p.fadeOut();
-
-		if(alarmbox){
-			clock.velocity({translateY: - h * clock_move_1}, 300);
-		}
-		else{
-			clock.velocity({translateY: 0}, 300);
-		}
 
 	}).on('show',function(){
 
@@ -368,9 +355,15 @@ $(function(){
 		alarm_box.velocity({translateY: 0}, 300, function(){
 			alarmbox = false;
 		});
+		setTimeout(function(){
+				clock.velocity({translateY: 0}, 300);
+		}, 100);
 	}).on('show',function(){
 		alarm_box.velocity({translateY: -100}, 300, function(){
 			alarmbox = true;
 		});
+		setTimeout(function(){
+				clock.velocity({translateY: - h * clock_move_1}, 300);
+		}, 75);
 	});
 });
