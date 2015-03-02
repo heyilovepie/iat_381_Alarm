@@ -553,13 +553,20 @@ footer .button-holder{
 	padding: 10px 0px 10px 0px;
 }
 
+footer .button-holder2{
+	height: 300px;
+	width: 300px;
+	position:fixed;
+	left: 50%;
+	margin-left:-150px;
+}
+
 footer .alarm-button{
-	margin: 7px 10%;
-	width: 80%;
+	margin: 7px 0px;
 	height: 50px;
+	width: 100%;
 	border-radius:6px;
 	background-color:#373636;
-	padding: 0em 0em 0em 0em;
 }
 
 footer .alarm-button.active{
