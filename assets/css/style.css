@@ -113,10 +113,6 @@ section, footer, header, aside{
 	border-color:#cacaca;	
 }
 
-#clock.dark .alarm{
-	background:url('../img/alarm_dark.jpg');
-}
-
 #clock.dark .display{
 /*	background-color:#0f1620;
 	box-shadow:0 1px 1px rgba(0,0,0,0.08) inset, 0 1px 1px #2d3642;*/
@@ -314,12 +310,10 @@ section, footer, header, aside{
 	The Alarm
 --------------------------*/
 
-
 #clock .alarm{
-	width:16px;
-	height:16px;
-	bottom:20px;
-	background:url('../img/alarm_dark.jpg');
+	bottom:34px;
+	left: 29px;
+	font-size: 1em;
 	position:absolute;
 	opacity:0.2;
 }
@@ -332,7 +326,6 @@ section, footer, header, aside{
 /*-------------------------
 	Weekdays
 --------------------------*/
-
 
 #clock .weekdays{
 	font-size:12px;
@@ -355,20 +348,19 @@ section, footer, header, aside{
 
 
 /*-------------------------
-		AM/PM
+	AM/PM
 --------------------------*/
-
 
 #clock .ampm{
 	position:absolute;
-	bottom:20px;
-	right:20px;
+	bottom:34px;
+	right:29px;
 	font-size:12px;
 }
 
 
 /*-------------------------
-		Button
+	Button
 --------------------------*/
 
 .button-holder{
@@ -379,22 +371,17 @@ section, footer, header, aside{
 
 a.button{
 	background-color:#f6a7b3;
-	
 	background-image:-webkit-linear-gradient(top, #f6a7b3, #f0a3af);
 	background-image:-moz-linear-gradient(top, #f6a7b3, #f0a3af);
 	background-image:linear-gradient(top, #f6a7b3, #f0a3af);
-
 	border:1px solid #eb9ba7;
 	border-radius:2px;
-
 	box-shadow:0 2px 2px #ccc;
-
 	color:#fff;
 	text-decoration: none !important;
 	padding:15px 20px;
 	display:inline-block;
 	cursor:pointer;
-
 	position:relative;
 	z-index: 1;
 }
@@ -415,7 +402,6 @@ a.button:hover{
 /*-------------------------
 	Alarm Dialog
 --------------------------*/
-
 
 /* Hide the arrows dispayed in number inputs in webkit */
 
@@ -438,12 +424,12 @@ input::-webkit-inner-spin-button {
 #time-is-up{
 	box-sizing: border-box;
 	width:500px;
-	height:375px;
+	height:305px !important;
 	background-color:#FFF;
 	opacity: 1;
 	border-radius:2px;
 	position:fixed;
-	top:200px;
+	top:139px !important;
 	left:50%;
 	margin-left:-250px;
 	text-align:center;
@@ -456,7 +442,8 @@ input::-webkit-inner-spin-button {
 	text-transform: uppercase;
 	font-size:18px;
 	color:#5e6268;
-	padding: 50px 0;
+	padding-bottom: 20px !important;
+	padding-top: 56px !important;
 }
 
 #alarm-dialog label{
@@ -482,7 +469,7 @@ input::-webkit-inner-spin-button {
 }
 
 #alarm-dialog .button-holder{
-	padding-top: 50px;
+	padding-top: 21px;
 	padding-bottom:0;
 }
 
@@ -507,34 +494,29 @@ input::-webkit-inner-spin-button {
 
 /* Checkmark icon position */
 #alarm-dialog .check{
-	display:block;
-	float: right;
+	display:inline-block;
 	position: relative;
 	margin: 0;
 	padding: 0;
-	top: 25px;
-	left: 35px;
-	float: left;
-	cursor:pointer;
+	float: right;
+	top: 15px !important;
+	left: -80px !important;
+	font-size: 2em;
 	transition: all .3s ease-out;
 }
+
 
 /* 'X' icon position */
 #alarm-dialog .close{
-	display:block;
-	float: right;
+	display:inline-block;
+	float: left;
 	position: relative;
 	margin: 0;
 	padding: 0;
-	top: 25px;
-	right: 35px;
-	float: right;
-	cursor:pointer;
-	transition: all .3s ease-out;
+	top: 15px !important;
+	left: 80px !important;
+	font-size: 2em;
 }
-
-
-
 
 #time-is-up{
 	height: 240px;
@@ -592,6 +574,15 @@ footer .alarm-button.active .close{
 	width: 8px;
 	height: 8px;
 	background: url('http://cdn.tutorialzine.com/misc/enhance/v2_footer_bg.png') no-repeat 0 0px;
+}
+
+/* [delete] alarm icon */
+footer .alarm-button .delete{
+	margin: 7px 5%;
+	display: inline-block;
+	float: right;
+	color: #fff;
+	font-size: 2em;
 }
 
 footer h2{
