@@ -564,6 +564,10 @@ footer .alarm-button.active{
 	background-color:#5e5c5c;
 }
 
+footer .alarm-button.hidden{
+	display: none;
+}
+
 footer .alarm-button.active .close{
 	position: absolute;
 	cursor: pointer;

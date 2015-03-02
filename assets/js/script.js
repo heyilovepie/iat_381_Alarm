@@ -221,11 +221,13 @@ $(function(){
 			}
 
 			//check to see if the counter is done
+			var parent_button = $("#" + String(i)).parent();
 			if(alarm_counter[i] >= 1){
 				
 				// Decrement the counter with one second
 				alarm_counter[i]--;
 				alarms_active++;
+				parent_button.removeClass("hidden");
 			}
 			else if(alarm_counter[i] >= 0){
 				time_is_up_p.fadeIn();
@@ -233,6 +235,7 @@ $(function(){
 
 				alarm_counter[i] = -1;
 				alarms_active++;
+				parent_button.removeClass("hidden");
 
 				current_alarm = i;
  
@@ -242,6 +245,11 @@ $(function(){
 					$('#alarm-ring')[0].play();
 				}
 				catch(e){}
+			}
+			else{
+				if(i > alarms_active + 1){ //if there are more than one inactive alarms
+					button.addClass("hidden"); //hide this alarm
+				}
 			}
 		}
 
