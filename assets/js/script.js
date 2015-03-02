@@ -1,5 +1,7 @@
 $(function(){
 
+	////////VARIABLES///////////////////
+
 	//object variables
 	var 
 		h = $(window).height(),
@@ -43,25 +45,19 @@ $(function(){
 	var digit_holder = clock.find('.digits');
 
 	$.each(positions, function(){
-
 		if(this == ':'){
 			digit_holder.append('<div class="dots">');
 		}
 		else{
-
 			var pos = $('<div>');
-
 			for(var i=1; i<8; i++){
 				pos.append('<span class="d' + i + '">');
 			}
-
 			// Set the digits as key:value pairs in the digits object
 			digits[this] = pos;
-
 			// Add the digit elements to the page
 			digit_holder.append(pos);
 		}
-
 	});
 
 	// Add the weekday names
@@ -78,6 +74,8 @@ $(function(){
 	function pxToFloat(PX){
 		return parseFloat(PX.split("px"));
 	}
+
+	///////////////CONFIGURE//////////////////////
 
 	function configure(){
 		//widow dimentions
@@ -104,12 +102,15 @@ $(function(){
 		var dTop = 200; // dialogue top
 		var dHeight = 375; //dialog height
 		var saPadding = 50; //"set alarm" padding (#alarm-dialog h2)
-		if(h < 400){
+		if(h < 400){ //landscape mode
 			clock_move_1 = .2;
 			clock_move_2 = clock_move_1;
 			dTop = 10;
 			dHeight = h - dTop * 2;
 			saPadding = 30;
+		}
+		else if ( dTop + dHeight > h) { //really small device
+			dTop = h - dHeight; //make bottom at bottom
 		}
 		else{
 			clock_move_2 = .2;
@@ -131,7 +132,9 @@ $(function(){
 		adc.css({ right: adcRight});
 	};
 
+	/////////////////////BREAKTIME//////////////////////
 	function breakTime(time){
+		/* breaks the alarm_counter into h/m/s components*/
 		var break_time = [0, 0, 0];
 		break_time[0] = Math.floor(time/3600);
 		time = time%3600;
@@ -147,8 +150,9 @@ $(function(){
 	$( window ).resize(configure); //When you flip the phone configure it
 	configure(); //configure it at the start
 
-	// Run a timer every second and update the clock
+	//////////////UPDATE TIME///////////////////////////
 	(function update_time(){
+		// Runs a timer every second and update the clock
 
 		// Use moment.js to output the current time as a string
 		// hh is for the hours in 12-hour format,
@@ -220,15 +224,15 @@ $(function(){
 
 	})();
 
-	// Switch the theme
+	/////////////JQUERY CLICKS////////////////////////
 
+	// Switch the theme
 	$('#switch-theme').click(function(){
 		clock.toggleClass('light dark');
 	});
 
 
-	// Handle setting and clearing alarms
-
+	//////////////ALARM TOGGLE//////////////////////
 	$('.alarm-toggle').click(function(){
 		if(alarmbox){
 			alarm_box.trigger('hide');
@@ -237,8 +241,11 @@ $(function(){
 		}
 	});
 
+
+	///////////////ALARM BUTTONS///////////////////
 	$('.alarm-button').click(function(e){
 		$(this).addClass("active");
+		$(this).children('h2').text("Active");
 		var theID = e.target.id;
 		if(theID == "new"){
 			//find out which alarm it is
@@ -250,7 +257,6 @@ $(function(){
 					break;
 				}
 			}
-
 			/////////////Change this to allow choice? ////////////
 			if ( !made_alarm ){ //if you have made 3 alarms then override the oldest one
 				current_alarm ++;
@@ -262,21 +268,18 @@ $(function(){
 		else{
 			current_alarm = parseFloat( theID );
 		}
-
-		// Show the dialog
- 		dialog_p.trigger('show');		
+ 		dialog_p.trigger('show');	 // Show the dialog	
  		clock.velocity({translateY: - h * clock_move_2}, 300);	
 	});
 
-	dialog.find('.close').click(function(){
 
+	dialog.find('.close').click(function(){
 		dialog_p.trigger('hide')
 	});
 
-	dialog_p.click(function(e){
 
-		// When the overlay is clicked, 
-		// hide the dialog_p.
+	dialog_p.click(function(e){
+		// When the overlay is clicked, hide the dialog_p.
 		if($(e.target).is('.overlay')){
 			// This check is need to prevent
 			// bubbled up events from hiding the dialog
@@ -321,6 +324,7 @@ $(function(){
 		dialog_p.trigger('hide');
 	});
 
+
 	alarm_clear.click(function(){
 		alarm_counter[current_alarm] = -1; //reset alarm
 		dialog_p.trigger('hide');
@@ -328,7 +332,29 @@ $(function(){
 		$("#" + String(current_alarm)).parent().removeClass("active"); 
 	});
 
-	// Custom events to keep the code clean
+
+	time_is_up.click(function(){
+		time_is_up_p.fadeOut();
+		if(alarmbox){
+			clock.velocity({translateY: - h * clock_move_1}, 300);
+		}
+		else{
+			clock.velocity({translateY: 0}, 300);
+		}
+	});
+
+
+	////////////TOUCH EVENTS///////////////////
+	$('body').on("swipeup", function(){
+		if(alarmbox) alarm_box.trigger('hide');
+	});
+
+	$('body').on("swipedown", function(){
+		if(!alarmbox) alarm_box.trigger('show');
+	});
+
+
+	//////////////HIDE AND SHOW//////////////////////
 	dialog_p.on('hide',function(){
 		alarm_box.trigger('hide');
 		dialog_p.fadeOut();
@@ -354,25 +380,7 @@ $(function(){
 
 	});
 
-	time_is_up.click(function(){
-		time_is_up_p.fadeOut();
-		if(alarmbox){
-			clock.velocity({translateY: - h * clock_move_1}, 300);
-		}
-		else{
-			clock.velocity({translateY: 0}, 300);
-		}
-	});
 
-	$('body').on("swipeup", function(){
-		if(alarmbox) alarm_box.trigger('hide');
-	});
-
-	$('body').on("swipedown", function(){
-		if(!alarmbox) alarm_box.trigger('show');
-	});
-
-	// Custom events to keep the code clean
 	alarm_box.on('hide',function(){
 		alarm_box.velocity({translateY: 0}, 300, function(){
 			alarmbox = false;
