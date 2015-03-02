@@ -392,7 +392,6 @@ $(function(){
 		alarm_counter[current_alarm] = -1; //reset alarm
 		dialog_p.trigger('hide');
 		//find the id matching the current alarm and remove active from its parent object
-
 		activateAlarmButton(false, $("#" + String(current_alarm)).parent(), current_alarm);
 	});
 
@@ -410,6 +409,7 @@ $(function(){
 
 
 	////////////TOUCH EVENTS///////////////////
+	//NOT WORKING!!!!!!
 	$('body').on("swipeup", function(){
 		if(alarmbox) alarm_box.trigger('hide');
 	});
@@ -418,9 +418,20 @@ $(function(){
 		if(!alarmbox) alarm_box.trigger('show');
 	});
 
-	$('.alarm_button').on("swipeleft", function(){
+	$('.alarm_button').on("swipeleft", function(e){
 		console.log("swippppy");
+		var theID = e.target.id;
+		var theButton = $(this);
+		alarm_counter[theID] = -1; //reset alarm
+		//deactivate the alarm
+		activateAlarmButton(false, theButton, theID);
+		//move like a swipe
+		theButton
+				.velocity({translateX: 50}, 100)
+				.velocity({translateX: 0}, 300);
 	});
+
+	
 
 	//////////////HIDE AND SHOW//////////////////////
 	dialog_p.on('hide',function(){
