@@ -418,6 +418,9 @@ $(function(){
 		if(!alarmbox) alarm_box.trigger('show');
 	});
 
+	$('.alarm_button').on("swipeleft", function(){
+		console.log("swippppy");
+	});
 
 	//////////////HIDE AND SHOW//////////////////////
 	dialog_p.on('hide',function(){
