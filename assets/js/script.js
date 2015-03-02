@@ -231,7 +231,7 @@ $(function(){
 				// Decrement the counter with one second
 				alarm_counter[i]--;
 				alarms_active++;
-				parent_button.removeClass("hidden");
+				parent_button.removeClass('hidden');
 			}
 			else if(alarm_counter[i] >= 0){
 				time_is_up_p.fadeIn();
@@ -239,7 +239,7 @@ $(function(){
 
 				alarm_counter[i] = -1;
 				alarms_active++;
-				parent_button.removeClass("hidden");
+				parent_button.removeClass('hidden');
 
 				current_alarm = i;
  
@@ -251,12 +251,13 @@ $(function(){
 				catch(e){}
 			}
 			else{
-				if(i > alarms_active + 1){ //if there are more than one inactive alarms
-					button.addClass("hidden"); //hide this alarm
+				if(i > alarms_active){ //if there are more than one inactive alarms
+					parent_button.addClass('hidden'); //hide this alarm
+					console.log("hide");
 				}
 			}
+			console.log(i + " : " + (alarms_active + 1));
 		}
-
 		//check to see if you have the alarm icon on or not
 		if( alarms_active > 0 ){ 
 			alarm.addClass('active');

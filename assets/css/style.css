@@ -11,6 +11,10 @@
 	General Styles
 --------------------------*/
 
+.hidden{
+	display: none;
+}
+
 .element{
 	background-image: url("../img/charactericon.png");
 	width: 100px;
@@ -577,11 +581,6 @@ footer .alarm-button.active{
 	background-color:#5e5c5c;
 }
 
-<<<<<<< HEAD
-footer .alarm-button.hidden{
-	display: none;
-}
-
 footer .alarm-button.active .close{
 	position: absolute;
 	cursor: pointer;
@@ -591,9 +590,6 @@ footer .alarm-button.active .close{
 	height: 8px;
 	background: url('http://cdn.tutorialzine.com/misc/enhance/v2_footer_bg.png') no-repeat 0 0px;
 }
-
-=======
->>>>>>> 6069c49be99709d56ec901547ec55260066f26dd
 
 footer h2{
 	text-transform: uppercase;
