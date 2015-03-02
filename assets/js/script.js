@@ -111,7 +111,7 @@ $(function(){
 			saPadding = 30;
 		}
 		else if ( dTop + dHeight > h) { //really small device
-			dTop = h - dHeight; //make bottom at bottom
+			//dTop = h - dHeight; //make bottom at bottom
 		}
 		else{
 			clock_move_2 = .2;
