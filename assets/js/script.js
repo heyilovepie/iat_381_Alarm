@@ -26,7 +26,8 @@ $(function(){
 	//alarm variables
 	var
 		alarm_counter = [-1, -1, -1], //the counters for the 3 alarms
-		current_alarm = 0; //the current location of the alarm
+		alarm_viewer = ["00:00:00", "00:00:10", "00:00:20"]; 
+		current_alarm = 0; //the current location of the alarm that you are changing
 
 	// Map digits to their names (this will be an array)
 	var digit_to_name = 'zero one two three four five six seven eight nine'.split(' ');
@@ -147,6 +148,17 @@ $(function(){
 		return break_time;
 	}
 
+	function activateAlarmButton(bool, theButton, theID){
+		if(bool == true){
+			theButton.addClass("active");
+			theButton.children('h2').text(alarm_viewer[theID]);
+		}
+		else{
+			theButton.removeClass("active");
+			theButton.children('h2').text("new Alarm");
+		}
+	}
+
 	$( window ).resize(configure); //When you flip the phone configure it
 	configure(); //configure it at the start
 
@@ -241,12 +253,11 @@ $(function(){
 		}
 	});
 
-
 	///////////////ALARM BUTTONS///////////////////
 	$('.alarm-button').click(function(e){
-		$(this).addClass("active");
-		$(this).children('h2').text("Active");
 		var theID = e.target.id;
+		var theButton = $(this);
+		activateAlarmButton(true, theButton, theID);
 		if(theID == "new"){
 			//find out which alarm it is
 			var made_alarm = false;
@@ -329,7 +340,8 @@ $(function(){
 		alarm_counter[current_alarm] = -1; //reset alarm
 		dialog_p.trigger('hide');
 		//find the id matching the current alarm and remove active from its parent object
-		$("#" + String(current_alarm)).parent().removeClass("active"); 
+
+		activateAlarmButton(false, $("#" + String(current_alarm)).parent(), current_alarm);
 	});
 
 
