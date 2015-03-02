@@ -11,6 +11,10 @@
 	General Styles
 --------------------------*/
 
+.hidden{
+	display: none;
+}
+
 .element{
 	background-image: url("../img/charactericon.png");
 	width: 100px;
@@ -325,6 +329,87 @@ section, footer, header, aside{
 }
 
 
+/*SLIDER BARS*/
+#slider {
+	width: 400px;
+	height: 5px;
+	position: relative;
+	margin: 100px auto;
+	background: #10171D;
+	
+	-webkit-border-radius: 40px;
+	-moz-border-radius: 40px;
+	border-radius: 40px;
+	
+	-webkit-box-shadow: inset 0px 0px 1px 1px rgba(0, 0, 0, 0.9), 0px 1px 1px 0px rgba(255, 255, 255, 0.13);
+	-moz-box-shadow: inset 0px 0px 1px 1px rgba(0, 0, 0, 0.9), 0px 1px 1px 0px rgba(255, 255, 255, 0.13);
+	box-shadow: inset 0px 0px 1px 1px rgba(0, 0, 0, 0.9), 0px 1px 1px 0px rgba(255, 255, 255, 0.13);
+}
+
+#slider .bar {
+	width: 388px;
+	height: 5px;
+	background: #333;
+	position: relative;
+	top: -4px;
+	left: 4px;	
+	
+	background: #1d2e38;
+	background: -moz-linear-gradient(left, #1d2e38 0%, #2b4254 50%, #2b4254 100%);
+	background: -webkit-gradient(linear, left top, right top, color-stop(0%,#1d2e38), color-stop(50%,#2b4254), color-stop(100%,#2b4254));
+	background: -webkit-linear-gradient(left, #1d2e38 0%,#2b4254 50%,#2b4254 100%);
+	background: -o-linear-gradient(left, #1d2e38 0%,#2b4254 50%,#2b4254 100%);
+	background: -ms-linear-gradient(left, #1d2e38 0%,#2b4254 50%,#2b4254 100%);
+	background: linear-gradient(left, #1d2e38 0%,#2b4254 50%,#2b4254 100%);
+	filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#1d2e38', endColorstr='#2b4254',GradientType=1 );	
+	
+	-webkit-border-radius: 40px;
+	-moz-border-radius: 40px;
+	border-radius: 40px;
+}
+
+
+
+
+
+input[type="range"] {
+	-webkit-appearance: none;
+	background-color: black;
+	height: 2px;
+}
+
+input[type="range"]::-webkit-slider-thumb {
+	-webkit-appearance: none;
+	position: relative;
+	top: 0px;
+	z-index: 1;
+	width: 11px;
+	height: 11px;
+	cursor: pointer;
+	-webkit-box-shadow: 0px 6px 5px 0px rgba(0,0,0,0.6);
+	-moz-box-shadow: 0px 6px 5px 0px rgba(0,0,0,0.6);
+	box-shadow: 0px 6px 5px 0px rgba(0,0,0,0.6);
+	-webkit-border-radius: 40px;
+	-moz-border-radius: 40px;
+	border-radius: 40px;
+	background-image: -webkit-gradient(linear, left top, left bottom, color-stop(0%,#ebf1f6), color-stop(50%,#abd3ee), color-stop(51%,#89c3eb), color-stop(100%,#d5ebfb));
+}
+
+input[type="range"]:hover ~ #rangevalue,input[type="range"]:active ~ #rangevalue {
+	-ms-filter: "progid:DXImageTransform.Microsoft.Alpha(Opacity=100)";
+	filter: alpha(opacity=100);
+	opacity: 1;
+	top: -75px;
+}
+
+/* Tool Tip */
+
+
+
+
+
+
+
 /*-------------------------
 	Weekdays
 --------------------------*/
@@ -367,23 +452,72 @@ section, footer, header, aside{
 		Button
 --------------------------*/
 
+.button {
+   border: 1px solid #000000;
+   background: #333333;
+   background: -webkit-gradient(linear, left top, left bottom, from(#ababab), to(#333333));
+   background: -webkit-linear-gradient(top, #ababab, #333333);
+   background: -moz-linear-gradient(top, #ababab, #333333);
+   background: -ms-linear-gradient(top, #ababab, #333333);
+   background: -o-linear-gradient(top, #ababab, #333333);
+   background-image: -ms-linear-gradient(top, #ababab 0%, #333333 100%);
+   padding: 10.5px 21px;
+   -webkit-border-radius: 6px;
+   -moz-border-radius: 6px;
+   border-radius: 6px;
+   -webkit-box-shadow: rgba(255,255,255,0.4) 0 1px 0, inset rgba(255,255,255,0.4) 0 1px 0;
+   -moz-box-shadow: rgba(255,255,255,0.4) 0 1px 0, inset rgba(255,255,255,0.4) 0 1px 0;
+   box-shadow: rgba(255,255,255,0.4) 0 1px 0, inset rgba(255,255,255,0.4) 0 1px 0;
+   text-shadow: #848b8f 0 1px 0;
+   color: #ffffff;
+   font-size: 14px;
+   font-family: helvetica, serif;
+   text-decoration: none;
+   vertical-align: middle;
+   }
+.button:hover {
+   border: 1px solid #000000;
+   text-shadow: #828282 0 1px 0;
+   background: #787878;
+   background: -webkit-gradient(linear, left top, left bottom, from(#c2c2c2), to(#787878));
+   background: -webkit-linear-gradient(top, #c2c2c2, #787878);
+   background: -moz-linear-gradient(top, #c2c2c2, #787878);
+   background: -ms-linear-gradient(top, #c2c2c2, #787878);
+   background: -o-linear-gradient(top, #c2c2c2, #787878);
+   background-image: -ms-linear-gradient(top, #c2c2c2 0%, #787878 100%);
+   color: #fff;
+   }
+.button:active {
+   text-shadow: #949494 0 1px 0;
+   border: 1px solid #000000;
+   background: #c2c2c2;
+   background: -webkit-gradient(linear, left top, left bottom, from(#424242), to(#787878));
+   background: -webkit-linear-gradient(top, #424242, #c2c2c2);
+   background: -moz-linear-gradient(top, #424242, #c2c2c2);
+   background: -ms-linear-gradient(top, #424242, #c2c2c2);
+   background: -o-linear-gradient(top, #424242, #c2c2c2);
+   background-image: -ms-linear-gradient(top, #424242 0%, #c2c2c2 100%);
+   color: #fff;
+   }
+
+
 .button-holder{
 	width:100%;
 	text-align:center;
 	padding-bottom: 2em;
 }
-
+/*
 a.button{
-	background-color:#f6a7b3;
+	background-color:#ffffff;
 	
-	background-image:-webkit-linear-gradient(top, #f6a7b3, #f0a3af);
-	background-image:-moz-linear-gradient(top, #f6a7b3, #f0a3af);
-	background-image:linear-gradient(top, #f6a7b3, #f0a3af);
+	background-image:-webkit-linear-gradient(top, #000, #000);
+	background-image:-moz-linear-gradient(top, #000, #000);
+	background-image:linear-gradient(top, #000, #000);
 
-	border:1px solid #eb9ba7;
+	border:3px solid #FFF;
 	border-radius:2px;
 
-	box-shadow:0 2px 2px #ccc;
+	box-shadow:0 2px 2px #000;
 
 	color:#fff;
 	text-decoration: none !important;
@@ -394,7 +528,7 @@ a.button{
 	position:relative;
 	z-index: 1;
 }
-
+*/
 a.button:hover{
 	opacity:0.9;
 }
@@ -432,17 +566,18 @@ input::-webkit-inner-spin-button {
 
 #alarm-dialog, 
 #time-is-up{
-	width: 500px;
-	height: 375px;
+	box-sizing: border-box;
+	width:500px;
+	height:375px;
 	background-color:#FFF;
 	opacity: 1;
 	border-radius:2px;
-	box-shadow: 0 0 8px rgba(0,0,0,0.2);
-	position:relative;
-	top: 26%;
+	position:fixed;
+	top:200px;
 	left:50%;
 	margin-left:-250px;
 	text-align:center;
+	box-shadow: 0 1px 7px 0 rgba(0,0,0,0.2);
 	transition: all .28s cubic-bezier(.4,0,.2,1);
 }
 
@@ -451,7 +586,7 @@ input::-webkit-inner-spin-button {
 	text-transform: uppercase;
 	font-size:18px;
 	color:#5e6268;
-	padding: 3em 0em 1em 0em !important; 
+	padding: 50px 0;
 }
 
 #alarm-dialog label{
@@ -482,11 +617,13 @@ input::-webkit-inner-spin-button {
 }
 
 #alarm-dialog .button-holder .button{
+	width: 250px;
 	box-shadow:0 2px 2px #eee;
 	padding:13px 22px;
 	margin:3px;
 }
 
+/*
 .button.blue{
 	background-color:#82cddd;
 
@@ -496,30 +633,34 @@ input::-webkit-inner-spin-button {
 
 	border-color:#72c1d2;
 }
+*/
 
 /* Checkmark icon position */
-#alarm-dialog .close{
-	display:block;
-	float: right;
-	position: relative;
-	margin: 0;
-	padding: 0;
-	top: 2%;
-	/*left: 5%;*/
-	/*float: left;*/
-	cursor:pointer;
-}
-
-/* 'X' icon position */
 #alarm-dialog .check{
 	display:block;
 	float: right;
 	position: relative;
 	margin: 0;
 	padding: 0;
-	right: 69%;
-	top: 2%;
+	top: 25px;
+	left: 35px;
+	float: left;
 	cursor:pointer;
+	transition: all .3s ease-out;
+}
+
+/* 'X' icon position */
+#alarm-dialog .close{
+	display:block;
+	float: right;
+	position: relative;
+	margin: 0;
+	padding: 0;
+	top: 25px;
+	right: 35px;
+	float: right;
+	cursor:pointer;
+	transition: all .3s ease-out;
 }
 
 
@@ -560,25 +701,42 @@ footer .button-holder{
 	padding: 10px 0px 10px 0px;
 }
 
+footer .button-holder2{
+	height: 300px;
+	width: 300px;
+	position:fixed;
+	left: 50%;
+	margin-left:-150px;
+}
+
 footer .alarm-button{
-	margin: 7px 10%;
-	width: 80%;
+	margin: 7px 0px;
 	height: 50px;
+	width: 100%;
 	border-radius:6px;
 	background-color:#373636;
-	padding: 0em 0em 0em 0em;
 }
 
 footer .alarm-button.active{
 	background-color:#5e5c5c;
 }
 
+footer .alarm-button.active .close{
+	position: absolute;
+	cursor: pointer;
+	right: 0px;
+	top: 0px;
+	width: 8px;
+	height: 8px;
+	background: url('http://cdn.tutorialzine.com/misc/enhance/v2_footer_bg.png') no-repeat 0 0px;
+}
 
 footer h2{
 	text-transform: uppercase;
 	font-size:18px;
 	color:#DBDFE5;
 	padding: 1em;
+	text-align: center;
 }
 
 footer a.tz{

@@ -22,6 +22,7 @@ $(function(){
 		alarmbox = false,
 		clock_move_1 = .1,
 		clock_move_2 = .2;
+		toggle_move = 70;
 
 	//alarm variables
 	var
@@ -103,15 +104,19 @@ $(function(){
 		var dTop = 200; // dialogue top
 		var dHeight = 375; //dialog height
 		var saPadding = 50; //"set alarm" padding (#alarm-dialog h2)
+		var adc = $("#alarm-dialog .close"); //the close button on dialog
+		var check = $("#alarm-dialog .check");
+		var ccTop = 40; //close check top
 		if(h < 400){ //landscape mode
 			clock_move_1 = .2;
 			clock_move_2 = clock_move_1;
 			dTop = 10;
+			ccTop = 25;
 			dHeight = h - dTop * 2;
 			saPadding = 30;
 		}
 		else if ( dTop + dHeight > h) { //really small device
-			//dTop = h - dHeight; //make bottom at bottom
+			dTop = h - dHeight; //make bottom at bottom
 		}
 		else{
 			clock_move_2 = .2;
@@ -122,19 +127,19 @@ $(function(){
 		time_is_up.css({top: dTop});
 		$("#alarm-dialog h2").css({"padding-top": saPadding});
 		$("#alarm-dialog h2").css({"padding-bottom": saPadding});
+		adc.css({top: ccTop});
+		check.css({top: ccTop});
 
 		//other constraints
 		var dWidth = pxToFloat(dialog.css("width")); //Dialog width
-		var adc = $("#alarm-dialog .close"); //the close button on dialog
-		var clear = $("#alarm-dialog .check#alarm-clear");
-		var adcRight = 10;
-		var clearLeft = 10;
+		var adcRight = 35;
+		var checkLeft = 35;
 		if ( dWidth > w ) { //if the width is wider than the screen so the close is not visible
-			adcRight = dWidth/2 - w/2 + 10; //make the close be 10px from edge
-			clearLeft = dWidth/2 - w/2 + 10;
+			adcRight = dWidth/2 - w/2 + 20; //make the close be 10px from edge
+			checkLeft = dWidth/2 - w/2 + 20;
 		}
 		adc.css({ right: adcRight});
-		clear.css({ left: clearLeft});
+		check.css({ left: checkLeft});
 	};
 
 	/////////////////////BREAKTIME//////////////////////
@@ -205,6 +210,7 @@ $(function(){
 
 		// Is there an alarm set?
 		var alarms_active = 0;
+		var parent_button;
 		for(var i = 0; i < alarm_counter.length; i++){
 			//make the countdown show 
 			if(alarm_counter[i] > 0){ //if you are counting
@@ -225,13 +231,13 @@ $(function(){
 			}
 
 			//check to see if the counter is done
-			var parent_button = $("#" + String(i)).parent();
+			parent_button = $("#" + String(i)).parent();
 			if(alarm_counter[i] >= 1){
 				
 				// Decrement the counter with one second
 				alarm_counter[i]--;
 				alarms_active++;
-				parent_button.removeClass("hidden");
+				parent_button.removeClass('hidden');
 			}
 			else if(alarm_counter[i] >= 0){
 				time_is_up_p.fadeIn();
@@ -239,7 +245,7 @@ $(function(){
 
 				alarm_counter[i] = -1;
 				alarms_active++;
-				parent_button.removeClass("hidden");
+				parent_button.removeClass('hidden');
 
 				current_alarm = i;
  
@@ -251,18 +257,29 @@ $(function(){
 				catch(e){}
 			}
 			else{
-				if(i > alarms_active + 1){ //if there are more than one inactive alarms
-					button.addClass("hidden"); //hide this alarm
+				if(i > alarms_active){ //if there are more than one inactive alarms
+					parent_button.addClass('hidden'); //hide this alarm
+				}
+				else{
+					parent_button.removeClass('hidden'); //show alarm
 				}
 			}
 		}
-
 		//check to see if you have the alarm icon on or not
 		if( alarms_active > 0 ){ 
 			alarm.addClass('active');
 		} else {
 			alarm.removeClass('active');
 		}
+
+		//change how much the alarm_box moves to show all buttons
+		if(alarms_active < alarm_counter.length - 1){
+		toggle_move = 70 + alarms_active * 50;
+		}
+		else{
+		toggle_move = 70 + (alarm_counter.length - 1) * 50 + 10;	
+		}
+
 		// Schedule this function to be run again in 1 sec
 		setTimeout(update_time, 1000);
 
@@ -375,7 +392,6 @@ $(function(){
 		alarm_counter[current_alarm] = -1; //reset alarm
 		dialog_p.trigger('hide');
 		//find the id matching the current alarm and remove active from its parent object
-
 		activateAlarmButton(false, $("#" + String(current_alarm)).parent(), current_alarm);
 	});
 
@@ -393,6 +409,7 @@ $(function(){
 
 
 	////////////TOUCH EVENTS///////////////////
+	//NOT WORKING!!!!!!
 	$('body').on("swipeup", function(){
 		if(alarmbox) alarm_box.trigger('hide');
 	});
@@ -401,6 +418,20 @@ $(function(){
 		if(!alarmbox) alarm_box.trigger('show');
 	});
 
+	$('.alarm_button').on("swipeleft", function(e){
+		console.log("swippppy");
+		var theID = e.target.id;
+		var theButton = $(this);
+		alarm_counter[theID] = -1; //reset alarm
+		//deactivate the alarm
+		activateAlarmButton(false, theButton, theID);
+		//move like a swipe
+		theButton
+				.velocity({translateX: 50}, 100)
+				.velocity({translateX: 0}, 300);
+	});
+
+	
 
 	//////////////HIDE AND SHOW//////////////////////
 	dialog_p.on('hide',function(){
@@ -437,7 +468,7 @@ $(function(){
 				clock.velocity({translateY: 0}, 300);
 		}, 100);
 	}).on('show',function(){
-		alarm_box.velocity({translateY: -100}, 300, function(){
+		alarm_box.velocity({translateY: -toggle_move}, 300, function(){
 			alarmbox = true;
 		});
 		setTimeout(function(){
