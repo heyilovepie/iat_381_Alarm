@@ -427,23 +427,22 @@ input::-webkit-inner-spin-button {
 	height:100%;
 	top: 10%;
 	left:0;
-	z-index:10;
+	/*z-index:10;*/
 }
 
 #alarm-dialog, 
 #time-is-up{
-	box-sizing: border-box;
-	width:500px;
-	height:375px;
+	width: 500px;
+	height: 375px;
 	background-color:#FFF;
 	opacity: 1;
 	border-radius:2px;
-	position:fixed;
-	top:200px;
+	box-shadow: 0 0 8px rgba(0,0,0,0.2);
+	position:relative;
+	top: 26% !important;
 	left:50%;
 	margin-left:-250px;
 	text-align:center;
-	box-shadow: 0 1px 7px 0 rgba(0,0,0,0.2);
 	transition: all .28s cubic-bezier(.4,0,.2,1);
 }
 
@@ -452,7 +451,7 @@ input::-webkit-inner-spin-button {
 	text-transform: uppercase;
 	font-size:18px;
 	color:#5e6268;
-	padding: 50px 0;
+	padding: 3em 0em 1em 0em !important; 
 }
 
 #alarm-dialog label{
@@ -499,20 +498,6 @@ input::-webkit-inner-spin-button {
 }
 
 /* Checkmark icon position */
-#alarm-dialog .check{
-	display:block;
-	float: right;
-	position: relative;
-	margin: 0;
-	padding: 0;
-	top: 2%;
-	left: 5%;
-	float: left;
-	cursor:pointer;
-	transition: all .3s ease-out;
-}
-
-/* 'X' icon position */
 #alarm-dialog .close{
 	display:block;
 	float: right;
@@ -520,10 +505,21 @@ input::-webkit-inner-spin-button {
 	margin: 0;
 	padding: 0;
 	top: 2%;
-	right: 5%;
-	float: right;
+	/*left: 5%;*/
+	/*float: left;*/
 	cursor:pointer;
-	transition: all .3s ease-out;
+}
+
+/* 'X' icon position */
+#alarm-dialog .check{
+	display:block;
+	float: right;
+	position: relative;
+	margin: 0;
+	padding: 0;
+	right: 69%;
+	top: 2%;
+	cursor:pointer;
 }
 
 
@@ -577,23 +573,6 @@ footer .alarm-button.active{
 	background-color:#5e5c5c;
 }
 
-<<<<<<< HEAD
-footer .alarm-button.hidden{
-	display: none;
-}
-
-footer .alarm-button.active .close{
-	position: absolute;
-	cursor: pointer;
-	right: 0px;
-	top: 0px;
-	width: 8px;
-	height: 8px;
-	background: url('http://cdn.tutorialzine.com/misc/enhance/v2_footer_bg.png') no-repeat 0 0px;
-}
-
-=======
->>>>>>> 6069c49be99709d56ec901547ec55260066f26dd
 
 footer h2{
 	text-transform: uppercase;
