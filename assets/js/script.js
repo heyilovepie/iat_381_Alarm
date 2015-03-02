@@ -114,7 +114,7 @@ $(function(){
 			dTop = 10;
 			ccTop = 15;
 			dHeight = h - dTop * 2;
-			saPadding = 50;
+			saPadding = 25;
 		}
 		else if ( dTop + dHeight > h) { //really small device
 			dTop = h - dHeight; //make bottom at bottom
@@ -333,8 +333,9 @@ $(function(){
 				.velocity({translateX: 50}, 100)
 				.velocity({translateX: 0}, 300);
 
+		theButton.removeClass('hidden');
 		checkAlarms();
-		toggle_move -= 50;
+		toggle_move -= 60;
 		alarm_box.trigger('show');
 		}
 		else{ // did not click on the delete button

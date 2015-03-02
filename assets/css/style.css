@@ -590,9 +590,8 @@ input::-webkit-inner-spin-button {
 
 #alarm-dialog h1{
 	font-size:14px;
-	height: 10px;
 	color:#5e6268;
-	padding-bottom: 30px !important;
+	padding: 15px 0px 3px 0px;
 }
 
 
@@ -619,8 +618,8 @@ input::-webkit-inner-spin-button {
 }
 
 #alarm-dialog .button-holder{
-	padding-top: 21px;
-	padding-bottom:0;
+	padding-top: 40px;
+	padding-bottom: 10px;
 }
 
 #alarm-dialog .button-holder .button{
@@ -629,18 +628,6 @@ input::-webkit-inner-spin-button {
 	padding:13px 22px;
 	margin:3px;
 }
-
-/*
-.button.blue{
-	background-color:#82cddd;
-
-	background-image:-webkit-linear-gradient(top, #86d3e4, #82cddd);
-	background-image:-moz-linear-gradient(top, #86d3e4, #82cddd);
-	background-image:linear-gradient(top, #86d3e4, #82cddd);
-
-	border-color:#72c1d2;
-}
-*/
 
 /* Checkmark icon position */
 #alarm-dialog .check{
