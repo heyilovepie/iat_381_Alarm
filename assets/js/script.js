@@ -363,13 +363,24 @@ $(function(){
 
 
 	alarm_set.click(function(){
+		var valid = true, after = 0;
 		var ts = [0, 0, 0]; //timer set
 		var input_i = 0;
 		dialog.find('input').each(function(i){
 			ts[input_i] = parseInt(this.value);
 			input_i ++;
+
+			if(this.validity && !this.validity.valid){
+
+				// The input field contains something other than a digit,
+				// or a number less than the min value
+				valid = false;
+				this.focus();
+				return false;
+			}
 		});
-		console.log(timer_set);
+		alarm_time[current_alarm] = String(ts[0]) + ":" + String(ts[1]) + ":" + String(ts[2]);
+
 		var ttg = [0, 0, 0]; //time to go
 		if ( ts[0] < time[0]) ttg[0] += 24;
 		else if (ts[0] == time[0]){
@@ -378,11 +389,37 @@ $(function(){
 				if(ts[2] < time[2]) ttg[0] += 24;
 			}
 		}
-		ttg[0] += time[0] - ts[0];
-		ttg[1] += time[1] - ts[1];
-		ttg[2] += time[2] - ts[2];
 
-		///////////////////
+		ttg[0] += ts[0] - time[0];
+		ttg[1] += ts[1] - time[1];
+		ttg[2] += ts[2] - time[2];
+
+		if(ttg[2] < 0){
+			ttg[1] --;
+			ttg[2] += 60;
+		}
+		if(ttg[1] < 0){
+			ttg[0] --;
+			ttg[1] += 60;
+		}
+
+		console.log(time);
+		console.log(ts);
+		console.log(ttg);
+
+		after = ttg[0] * 60 * 60 + ttg[1] * 60 + ttg[2];
+
+		if(!valid){
+			alert('Please enter a valid number!');
+			return;
+		}
+
+		if(after < 1){
+			alert('Please choose a time in the future!');
+			return;	
+		}
+
+		/*
 		var valid = true, after = 0,
 			to_seconds = [3600, 60, 1];
 
@@ -404,6 +441,7 @@ $(function(){
 			after += to_seconds[i] * parseInt(this.value);
 		});
 
+
 		if(!valid){
 			alert('Please enter a valid number!');
 			return;
@@ -413,7 +451,7 @@ $(function(){
 			alert('Please choose a time in the future!');
 			return;	
 		}
-
+		*/
 		alarm_counter[current_alarm] = after;
 		dialog_p.trigger('hide');
 	});
