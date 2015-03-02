@@ -588,6 +588,14 @@ input::-webkit-inner-spin-button {
 	padding-bottom: 30px !important;
 }
 
+#alarm-dialog h1{
+	font-size:14px;
+	height: 100px;
+	color:#5e6268;
+	padding-bottom: 30px !important;
+}
+
+
 #alarm-dialog label{
 	text-transform: uppercase;
 	background-color: #f4f4f4;
