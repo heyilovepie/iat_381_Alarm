@@ -22,6 +22,7 @@ $(function(){
 		alarmbox = false,
 		clock_move_1 = .1,
 		clock_move_2 = .2;
+		toggle_move = 70;
 
 	//alarm variables
 	var
@@ -205,6 +206,7 @@ $(function(){
 
 		// Is there an alarm set?
 		var alarms_active = 0;
+		var parent_button;
 		for(var i = 0; i < alarm_counter.length; i++){
 			//make the countdown show 
 			if(alarm_counter[i] > 0){ //if you are counting
@@ -225,7 +227,7 @@ $(function(){
 			}
 
 			//check to see if the counter is done
-			var parent_button = $("#" + String(i)).parent();
+			parent_button = $("#" + String(i)).parent();
 			if(alarm_counter[i] >= 1){
 				
 				// Decrement the counter with one second
@@ -255,6 +257,9 @@ $(function(){
 					parent_button.addClass('hidden'); //hide this alarm
 					console.log("hide");
 				}
+				else{
+					parent_button.removeClass('hidden'); //show alarm
+				}
 			}
 			console.log(i + " : " + (alarms_active + 1));
 		}
@@ -264,6 +269,15 @@ $(function(){
 		} else {
 			alarm.removeClass('active');
 		}
+
+		//change how much the alarm_box moves to show all buttons
+		if(alarms_active < alarm_counter.length - 1){
+		toggle_move = 70 + alarms_active * 50;
+		}
+		else{
+		toggle_move = 70 + (alarm_counter.length - 1) * 50 + 10;	
+		}
+
 		// Schedule this function to be run again in 1 sec
 		setTimeout(update_time, 1000);
 
@@ -438,7 +452,7 @@ $(function(){
 				clock.velocity({translateY: 0}, 300);
 		}, 100);
 	}).on('show',function(){
-		alarm_box.velocity({translateY: -100}, 300, function(){
+		alarm_box.velocity({translateY: -toggle_move}, 300, function(){
 			alarmbox = true;
 		});
 		setTimeout(function(){
