@@ -26,8 +26,10 @@ $(function(){
 
 	//alarm variables
 	var
+		time, //the time right now in an array of 4 floats (h/m/s/d) and 1 string(pm/am)
 		alarm_counter = [-1, -1, -1], //the counters for the 3 alarms
-		alarm_viewer = ["00:00:00", "00:00:10", "00:00:20"]; 
+		alarm_viewer = ["00:00:00", "00:00:00", "00:00:00"]; 
+		alarm_time = ["00:00:00", "00:00:10", "00:00:20"]; 
 		current_alarm = 0; //the current location of the alarm that you are changing
 
 	// Map digits to their names (this will be an array)
@@ -63,7 +65,6 @@ $(function(){
 	});
 
 	// Add the weekday names
-
 	var weekday_names = 'MON TUE WED THU FRI SAT SUN'.split(' '),
 		weekday_holder = clock.find('.weekdays');
 
@@ -206,7 +207,17 @@ $(function(){
 		weekdays.removeClass('active').eq(dow).addClass('active');
 
 		// Set the am/pm text:
-		ampm.text(now[7]+now[8]);
+		var meridian = now[7]+now[8];
+		ampm.text(meridian);
+
+		//24 hr clock for reference from other script
+		var hour = parseFloat(now[0] + now[1]);
+		if(meridian === "pm") hour += 12;
+		time = [ 
+		hour, 
+		parseFloat(now[2] + now[3]), 
+		parseFloat(now[4] + now[5]), 
+		dow];
 
 		// Is there an alarm set?
 		var alarms_active = 0;
@@ -352,6 +363,26 @@ $(function(){
 
 
 	alarm_set.click(function(){
+		var ts = [0, 0, 0]; //timer set
+		var input_i = 0;
+		dialog.find('input').each(function(i){
+			ts[input_i] = parseInt(this.value);
+			input_i ++;
+		});
+		console.log(timer_set);
+		var ttg = [0, 0, 0]; //time to go
+		if ( ts[0] < time[0]) ttg[0] += 24;
+		else if (ts[0] == time[0]){
+			if(ts[1] < time[1]) ttg[0] += 24;
+			else if (ts[1] == time[1]){
+				if(ts[2] < time[2]) ttg[0] += 24;
+			}
+		}
+		ttg[0] += time[0] - ts[0];
+		ttg[1] += time[1] - ts[1];
+		ttg[2] += time[2] - ts[2];
+
+		///////////////////
 		var valid = true, after = 0,
 			to_seconds = [3600, 60, 1];
 
