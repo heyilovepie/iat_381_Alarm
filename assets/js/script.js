@@ -103,18 +103,18 @@ $(function(){
 
 		//height constrained elements
 		var dTop = 200; // dialogue top
-		var dHeight = 375; //dialog height
-		var saPadding = 50; //"set alarm" padding (#alarm-dialog h2)
+		var dHeight = 320; //dialog height
+		var saPadding = 60; //"set alarm" padding (#alarm-dialog h2)
 		var adc = $("#alarm-dialog .close"); //the close button on dialog
 		var check = $("#alarm-dialog .check");
-		var ccTop = 40; //close check top
+		var ccTop = 20; //close check top
 		if(h < 400){ //landscape mode
 			clock_move_1 = .2;
 			clock_move_2 = clock_move_1;
 			dTop = 10;
-			ccTop = 25;
+			ccTop = 15;
 			dHeight = h - dTop * 2;
-			saPadding = 30;
+			saPadding = 50;
 		}
 		else if ( dTop + dHeight > h) { //really small device
 			dTop = h - dHeight; //make bottom at bottom
@@ -132,15 +132,16 @@ $(function(){
 		check.css({top: ccTop});
 
 		//other constraints
+		// Sophia's note: switched the 'close' icon [adcLeft] to be left and the 'check' icon [adcRight] to be right
 		var dWidth = pxToFloat(dialog.css("width")); //Dialog width
-		var adcRight = 35;
-		var checkLeft = 35;
+		var adcLeft = 35;
+		var checkRight = 35;
 		if ( dWidth > w ) { //if the width is wider than the screen so the close is not visible
-			adcRight = dWidth/2 - w/2 + 20; //make the close be 10px from edge
-			checkLeft = dWidth/2 - w/2 + 20;
+			adcLeft = dWidth/2 - w/2 + 20; //make the close be 10px from edge
+			checkRight = dWidth/2 - w/2 + 20;
 		}
-		adc.css({ right: adcRight});
-		check.css({ left: checkLeft});
+		adc.css({ left: adcLeft});
+		check.css({ right: checkRight});
 	};
 
 	/////////////////////BREAKTIME//////////////////////
@@ -379,17 +380,6 @@ $(function(){
 				return false;
 			}
 		});
-
-		if(ts == [0, 0, 0]){
-			alert('Please choose a time in the future!');
-			return;	
-		}
-
-		if(!valid){
-			alert('Please enter a valid number!');
-			return;
-		}
-
 		alarm_time[current_alarm] = String(ts[0]) + ":" + String(ts[1]) + ":" + String(ts[2]);
 
 		var ttg = [0, 0, 0]; //time to go
@@ -414,7 +404,55 @@ $(function(){
 			ttg[1] += 60;
 		}
 
+		console.log(time);
+		console.log(ts);
+		console.log(ttg);
+
 		after = ttg[0] * 60 * 60 + ttg[1] * 60 + ttg[2];
+
+		if(!valid){
+			alert('Please enter a valid number!');
+			return;
+		}
+
+		if(after < 1){
+			alert('Please choose a time in the future!');
+			return;	
+		}
+
+		/*
+		var valid = true, after = 0,
+			to_seconds = [3600, 60, 1];
+
+		dialog.find('input').each(function(i){
+
+			// Using the validity property in HTML5-enabled browsers:
+
+			if(this.validity && !this.validity.valid){
+
+				// The input field contains something other than a digit,
+				// or a number less than the min value
+
+				valid = false;
+				this.focus();
+
+				return false;
+			}
+
+			after += to_seconds[i] * parseInt(this.value);
+		});
+
+
+		if(!valid){
+			alert('Please enter a valid number!');
+			return;
+		}
+
+		if(after < 1){
+			alert('Please choose a time in the future!');
+			return;	
+		}
+		*/
 		alarm_counter[current_alarm] = after;
 		dialog_p.trigger('hide');
 	});
