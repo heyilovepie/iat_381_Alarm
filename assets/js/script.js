@@ -104,10 +104,14 @@ $(function(){
 		var dTop = 200; // dialogue top
 		var dHeight = 375; //dialog height
 		var saPadding = 50; //"set alarm" padding (#alarm-dialog h2)
+		var adc = $("#alarm-dialog .close"); //the close button on dialog
+		var check = $("#alarm-dialog .check");
+		var ccTop = 40; //close check top
 		if(h < 400){ //landscape mode
 			clock_move_1 = .2;
 			clock_move_2 = clock_move_1;
 			dTop = 10;
+			ccTop = 25;
 			dHeight = h - dTop * 2;
 			saPadding = 30;
 		}
@@ -123,19 +127,19 @@ $(function(){
 		time_is_up.css({top: dTop});
 		$("#alarm-dialog h2").css({"padding-top": saPadding});
 		$("#alarm-dialog h2").css({"padding-bottom": saPadding});
+		adc.css({top: ccTop});
+		check.css({top: ccTop});
 
 		//other constraints
 		var dWidth = pxToFloat(dialog.css("width")); //Dialog width
-		var adc = $("#alarm-dialog .close"); //the close button on dialog
-		var clear = $("#alarm-dialog .check#alarm-clear");
-		var adcRight = 10;
-		var clearLeft = 10;
+		var adcRight = 35;
+		var checkLeft = 35;
 		if ( dWidth > w ) { //if the width is wider than the screen so the close is not visible
-			adcRight = dWidth/2 - w/2 + 10; //make the close be 10px from edge
-			clearLeft = dWidth/2 - w/2 + 10;
+			adcRight = dWidth/2 - w/2 + 20; //make the close be 10px from edge
+			checkLeft = dWidth/2 - w/2 + 20;
 		}
 		adc.css({ right: adcRight});
-		clear.css({ left: clearLeft});
+		check.css({ left: checkLeft});
 	};
 
 	/////////////////////BREAKTIME//////////////////////
@@ -255,13 +259,11 @@ $(function(){
 			else{
 				if(i > alarms_active){ //if there are more than one inactive alarms
 					parent_button.addClass('hidden'); //hide this alarm
-					console.log("hide");
 				}
 				else{
 					parent_button.removeClass('hidden'); //show alarm
 				}
 			}
-			console.log(i + " : " + (alarms_active + 1));
 		}
 		//check to see if you have the alarm icon on or not
 		if( alarms_active > 0 ){ 

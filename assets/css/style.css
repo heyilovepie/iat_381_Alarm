@@ -487,11 +487,13 @@ input::-webkit-inner-spin-button {
 }
 
 #alarm-dialog .button-holder .button{
+	width: 250px;
 	box-shadow:0 2px 2px #eee;
 	padding:13px 22px;
 	margin:3px;
 }
 
+/*
 .button.blue{
 	background-color:#82cddd;
 
@@ -501,6 +503,7 @@ input::-webkit-inner-spin-button {
 
 	border-color:#72c1d2;
 }
+*/
 
 /* Checkmark icon position */
 #alarm-dialog .check{
@@ -509,8 +512,8 @@ input::-webkit-inner-spin-button {
 	position: relative;
 	margin: 0;
 	padding: 0;
-	top: 2%;
-	left: 5%;
+	top: 25px;
+	left: 35px;
 	float: left;
 	cursor:pointer;
 	transition: all .3s ease-out;
@@ -523,8 +526,8 @@ input::-webkit-inner-spin-button {
 	position: relative;
 	margin: 0;
 	padding: 0;
-	top: 2%;
-	right: 5%;
+	top: 25px;
+	right: 35px;
 	float: right;
 	cursor:pointer;
 	transition: all .3s ease-out;
