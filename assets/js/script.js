@@ -205,8 +205,13 @@ $(function(){
 			//make the countdown show 
 			if(alarm_counter[i] > 0){ //if you are counting
 				var break_time = breakTime(alarm_counter[i]);
+				//make there be 0's before single digits
+				for (var y = 0; y < break_time.length; y++){
+					break_time[y] = String(break_time[y]);
+					if(break_time[y].length < 2) break_time[y] = "0" + break_time[y];
+				}
 				alarm_viewer[i] = break_time[0] + ":" + break_time[1] + ":" + break_time[2];
-			}
+			} 
 			else{ //if you are making the alarm now or otherwise
 				alarm_viewer[i] = "00:00:00";
 			}
