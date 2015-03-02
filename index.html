@@ -10,6 +10,8 @@
 
 		<!-- The main CSS file -->
 		<link href="assets/css/style.css" rel="stylesheet" />
+		  <!-- Font awesome link -->
+	  <link rel="stylesheet" href="//maxcdn.bootstrapcdn.com/font-awesome/4.3.0/css/font-awesome.min.css">
 
 		<!--Change BG based on time (not working yet-->
 		<!--Ref: http://www.katgal.com/2007/03/time-sensitive-css-switcher/-->
@@ -40,6 +42,16 @@
 		<div class="overlay">
 			<div id="alarm-dialog">
 
+				<!-- 'X' Icon. Closes dialog box -->
+				<div class="close">
+					<i class="fa fa-close fa-2x"></i>
+				</div>
+
+				<!-- Checkmark icon. Sets alarm -->
+				<div class="check">
+					<i class="fa fa-check fa-2x"></i>
+				</div>
+
 				<!-- Set alarm -->
 				<h2>Set alarm</h2>
 				<label class="hours">
@@ -62,8 +74,6 @@
 					<a id="alarm-set" class="button blue">Set</a>
 					<a id="alarm-clear" class="button red">Clear</a>
 				</div>
-
-				<a class="close"></a>
 			</div>
 		</div>
 
@@ -92,19 +102,15 @@
 			<!-- alarm buttons -->
 			<div class="alarm-button">
 			 	<h2 id="0">Alarm 1</h2>
-			 	<a class="close"></a>
 			</div>
 			<div class="alarm-button">
 			 	<h2 id="1">Alarm 2</h2>
-			 	<a class="close"></a>
 			</div>
 			<div class="alarm-button">
 			 	<h2 id="2">Alarm 3</h2>
-			 	<a class="close"></a>
 			</div>
 			<div class="alarm-button">
 			 	<h2 id="new">NEW ALARM</h2>
-			 	<a class="close"></a>
 			</div>
     </footer>
         

@@ -54,12 +54,6 @@ section, footer, header, aside{
 	display: block;
 }
 
-.close{
-	width: 36px;
-	height: 36px;
-	background: url('../img/close.png');
-}
-
 /*-------------------------
 	The clocks
 --------------------------*/
@@ -426,32 +420,26 @@ input::-webkit-inner-spin-button {
     display: none;
 }
 
-
 .overlay{
 	display:none;
 	position:fixed;
 	width:100%;
 	height:100%;
-	top:0;
+	top: 10%;
 	left:0;
-	background-color:rgba(0,0,0,0.2);
 	z-index:10;
 }
 
 #alarm-dialog, 
 #time-is-up{
-	/* top and height changed in the configure script */
-	width:500px;
-	height:375px;
+	box-sizing: border-box;
+	width: 90%;
+	margin-left: 5%;
 	background-color:#FFF;
-	opacity: 1;
 	border-radius:2px;
-	box-shadow: 0 0 8px rgba(0,0,0,0.2);
-	position:fixed;
-	top:200px;
-	left:50%;
-	margin-left:-250px;
+	box-shadow: 0 1px 7px 0 rgba(0,0,0,0.2);
 	text-align:center;
+	transition: all .28s cubic-bezier(.4,0,.2,1);
 }
 
 #alarm-dialog h2{
@@ -465,8 +453,6 @@ input::-webkit-inner-spin-button {
 #alarm-dialog label{
 	text-transform: uppercase;
 	background-color: #f4f4f4;
-	width: 80px;
-	height: 62px;
 	font-size: 11px;
 	display: inline-block;
 	padding: 10px;
@@ -507,12 +493,35 @@ input::-webkit-inner-spin-button {
 	border-color:#72c1d2;
 }
 
-#alarm-dialog .close{
-	top: 10px;
-	right: 10px;
-	position: absolute;
+/* Checkmark icon position */
+#alarm-dialog .check{
+	display:block;
+	float: right;
+	position: relative;
+	margin: 0;
+	padding: 0;
+	top: 2%;
+	left: 5%;
+	float: left;
 	cursor:pointer;
+	transition: all .3s ease-out;
 }
+
+/* 'X' icon position */
+#alarm-dialog .close{
+	display:block;
+	float: right;
+	position: relative;
+	margin: 0;
+	padding: 0;
+	top: 2%;
+	right: 5%;
+	float: right;
+	cursor:pointer;
+	transition: all .3s ease-out;
+}
+
+
 
 
 #time-is-up{
@@ -533,7 +542,6 @@ input::-webkit-inner-spin-button {
 /*----------------------------
 	The Footer
 -----------------------------*/
-
 
 #alarm-box{
 	width: 100%;
@@ -564,6 +572,7 @@ footer .alarm-button.active{
 	background-color:#5e5c5c;
 }
 
+<<<<<<< HEAD
 footer .alarm-button.hidden{
 	display: none;
 }
@@ -578,13 +587,14 @@ footer .alarm-button.active .close{
 	background: url('http://cdn.tutorialzine.com/misc/enhance/v2_footer_bg.png') no-repeat 0 0px;
 }
 
+=======
+>>>>>>> 6069c49be99709d56ec901547ec55260066f26dd
 
 footer h2{
 	text-transform: uppercase;
 	font-size:18px;
 	color:#DBDFE5;
 	padding: 1em;
-	width: 40%;
 }
 
 footer a.tz{
@@ -607,6 +617,17 @@ footer a.tz:before{
 	display: inline-block;
 	position: relative;
 	bottom: -3px;
+}
+
+footer .close{
+	position: absolute;
+	cursor: pointer;
+	width: 8px;
+	height: 8px;
+	background: url('http://cdn.tutorialzine.com/misc/enhance/v2_footer_bg.png') no-repeat 0 0px;
+	top:10px;
+	right:10px;
+	z-index: 3;
 }
 
 footer #tzine-actions{
