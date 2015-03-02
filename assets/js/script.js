@@ -134,14 +134,14 @@ $(function(){
 		//other constraints
 		// Sophia's note: switched the 'close' icon [adcLeft] to be left and the 'check' icon [adcRight] to be right
 		var dWidth = pxToFloat(dialog.css("width")); //Dialog width
-		var adcLeft = 35;
-		var checkRight = 35;
+		var adcRight = 35;
+		var checkLeft = 35;
 		if ( dWidth > w ) { //if the width is wider than the screen so the close is not visible
-			adcLeft = dWidth/2 - w/2 + 20; //make the close be 10px from edge
-			checkRight = dWidth/2 - w/2 + 20;
+			adcRight = dWidth/2 - w/2 + 20; //make the close be 10px from edge
+			checkLeft = dWidth/2 - w/2 + 20;
 		}
-		adc.css({ left: adcLeft});
-		check.css({ right: checkRight});
+		adc.css({ right: adcRight});
+		check.css({ left: checkLeft});
 	};
 
 	/////////////////////BREAKTIME//////////////////////
@@ -286,10 +286,10 @@ $(function(){
 
 		//change how much the alarm_box moves to show all buttons
 		if(alarms_active < alarm_counter.length - 1){
-		toggle_move = 70 + alarms_active * 50;
+		toggle_move = 70 + alarms_active * 60;
 		}
 		else{
-		toggle_move = 70 + (alarm_counter.length - 1) * 50 + 10;	
+		toggle_move = 70 + (alarm_counter.length - 1) * 60 + 10;	
 		}
 
 		// Schedule this function to be run again in 1 sec
