@@ -199,10 +199,23 @@ $(function(){
 		// Set the am/pm text:
 		ampm.text(now[7]+now[8]);
 
-
 		// Is there an alarm set?
 		var alarms_active = 0;
 		for(var i = 0; i < alarm_counter.length; i++){
+			//make the countdown show 
+			if(alarm_counter[i] > 0){ //if you are counting
+				var break_time = breakTime(alarm_counter[i]);
+				alarm_viewer[i] = break_time[0] + ":" + break_time[1] + ":" + break_time[2];
+			}
+			else{ //if you are making the alarm now or otherwise
+				alarm_viewer[i] = "00:00:00";
+			}
+			var button = $("#" + String(i));
+			if(button.parent().hasClass("active")){
+				button.text(alarm_viewer[i]);
+			}
+
+			//check to see if the counter is done
 			if(alarm_counter[i] >= 1){
 				
 				// Decrement the counter with one second
@@ -216,6 +229,8 @@ $(function(){
 				alarm_counter[i] = -1;
 				alarms_active++;
 
+				current_alarm = i;
+ 
 				// Play the alarm sound. This will fail
 				// in browsers which don't support HTML5 audio
 				try{
@@ -286,6 +301,9 @@ $(function(){
 
 	dialog.find('.close').click(function(){
 		dialog_p.trigger('hide')
+		if(alarm_counter[current_alarm] <= 0){ //if this alarm is not set
+			activateAlarmButton(false, $("#" + String(current_alarm)).parent(), current_alarm); //deactivate it 
+		}
 	});
 
 
@@ -347,6 +365,7 @@ $(function(){
 
 	time_is_up.click(function(){
 		time_is_up_p.fadeOut();
+		activateAlarmButton(false, $('#' + String(current_alarm)).parent(), current_alarm);
 		if(alarmbox){
 			clock.velocity({translateY: - h * clock_move_1}, 300);
 		}
