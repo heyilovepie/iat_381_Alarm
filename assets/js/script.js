@@ -173,54 +173,8 @@ $(function(){
 	$( window ).resize(configure); //When you flip the phone configure it
 	configure(); //configure it at the start
 
-	//////////////UPDATE TIME///////////////////////////
-	(function update_time(){
-		// Runs a timer every second and update the clock
-
-		// Use moment.js to output the current time as a string
-		// hh is for the hours in 12-hour format,
-		// mm - minutes, ss-seconds (all with leading zeroes),
-		// d is for day of week and A is for AM/PM
-
-		var now = moment().format("hhmmssdA");
-
-		digits.h1.attr('class', digit_to_name[now[0]]);
-		digits.h2.attr('class', digit_to_name[now[1]]);
-		digits.m1.attr('class', digit_to_name[now[2]]);
-		digits.m2.attr('class', digit_to_name[now[3]]);
-		digits.s1.attr('class', digit_to_name[now[4]]);
-		digits.s2.attr('class', digit_to_name[now[5]]);
-
-		// The library returns Sunday as the first day of the week.
-		// Stupid, I know. Lets shift all the days one position down, 
-		// and make Sunday last
-
-		var dow = now[6];
-		dow--;
-		
-		// Sunday!
-		if(dow < 0){
-			// Make it last
-			dow = 6;
-		}
-
-		// Mark the active day of the week
-		weekdays.removeClass('active').eq(dow).addClass('active');
-
-		// Set the am/pm text:
-		var meridian = now[7]+now[8];
-		ampm.text(meridian);
-
-		//24 hr clock for reference from other script
-		var hour = parseFloat(now[0] + now[1]);
-		if(meridian === "pm") hour += 12;
-		time = [ 
-		hour, 
-		parseFloat(now[2] + now[3]), 
-		parseFloat(now[4] + now[5]), 
-		dow];
-
-		// Is there an alarm set?
+	function checkAlarms(){
+				// Is there an alarm set?
 		var alarms_active = 0;
 		var parent_button;
 		for(var i = 0; i < alarm_counter.length; i++){
@@ -291,6 +245,56 @@ $(function(){
 		else{
 		toggle_move = 70 + (alarm_counter.length - 1) * 60 + 10;	
 		}
+	}
+
+	//////////////UPDATE TIME///////////////////////////
+	(function update_time(){
+		// Runs a timer every second and update the clock
+
+		// Use moment.js to output the current time as a string
+		// hh is for the hours in 12-hour format,
+		// mm - minutes, ss-seconds (all with leading zeroes),
+		// d is for day of week and A is for AM/PM
+
+		var now = moment().format("hhmmssdA");
+
+		digits.h1.attr('class', digit_to_name[now[0]]);
+		digits.h2.attr('class', digit_to_name[now[1]]);
+		digits.m1.attr('class', digit_to_name[now[2]]);
+		digits.m2.attr('class', digit_to_name[now[3]]);
+		digits.s1.attr('class', digit_to_name[now[4]]);
+		digits.s2.attr('class', digit_to_name[now[5]]);
+
+		// The library returns Sunday as the first day of the week.
+		// Stupid, I know. Lets shift all the days one position down, 
+		// and make Sunday last
+
+		var dow = now[6];
+		dow--;
+		
+		// Sunday!
+		if(dow < 0){
+			// Make it last
+			dow = 6;
+		}
+
+		// Mark the active day of the week
+		weekdays.removeClass('active').eq(dow).addClass('active');
+
+		// Set the am/pm text:
+		var meridian = now[7]+now[8];
+		ampm.text(meridian);
+
+		//24 hr clock for reference from other script
+		var hour = parseFloat(now[0] + now[1]);
+		if(meridian === "pm") hour += 12;
+		time = [ 
+		hour, 
+		parseFloat(now[2] + now[3]), 
+		parseFloat(now[4] + now[5]), 
+		dow];
+
+		checkAlarms();
 
 		// Schedule this function to be run again in 1 sec
 		setTimeout(update_time, 1000);
@@ -316,6 +320,24 @@ $(function(){
 
 	///////////////ALARM BUTTONS///////////////////
 	$('.alarm-button').click(function(e){
+
+		if($(e.target).is('.delete')){ //clicked on the delete button
+		var theButton = $(this);
+		var theID = theButton.find('h2').id;
+		alarm_counter[theID] = -1; //reset alarm
+		alarm_viewer[theID] = "00:00:00";
+		//deactivate the alarm
+		activateAlarmButton(false, theButton, theID);
+		//move like a swipe
+		theButton
+				.velocity({translateX: 50}, 100)
+				.velocity({translateX: 0}, 300);
+
+		checkAlarms();
+		toggle_move -= 50;
+		alarm_box.trigger('show');
+		}
+		else{ // did not click on the delete button
 		var theID = e.target.id;
 		var theButton = $(this);
 		activateAlarmButton(true, theButton, theID);
@@ -342,8 +364,8 @@ $(function(){
 		}
  		dialog_p.trigger('show');	 // Show the dialog	
  		clock.velocity({translateY: - h * clock_move_2}, 300);	
+ 		}
 	});
-
 
 	dialog.find('.close').click(function(){
 		dialog_p.trigger('hide')
@@ -361,7 +383,6 @@ $(function(){
 			dialog_p.trigger('hide');
 		}
 	});
-
 
 	alarm_set.click(function(){
 		var valid = true, after = 0;

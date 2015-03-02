@@ -590,7 +590,7 @@ input::-webkit-inner-spin-button {
 
 #alarm-dialog h1{
 	font-size:14px;
-	height: 100px;
+	height: 10px;
 	color:#5e6268;
 	padding-bottom: 30px !important;
 }
@@ -730,23 +730,17 @@ footer .alarm-button.active{
 	background-color:#5e5c5c;
 }
 
-footer .alarm-button.active .close{
-	position: absolute;
-	cursor: pointer;
-	right: 0px;
-	top: 0px;
-	width: 8px;
-	height: 8px;
-	background: url('http://cdn.tutorialzine.com/misc/enhance/v2_footer_bg.png') no-repeat 0 0px;
-}
-
 /* [delete] alarm icon */
-footer .alarm-button .delete{
+footer .alarm-button.active .delete{
 	margin: 7px 5%;
 	display: inline-block;
 	float: right;
 	color: #fff;
 	font-size: 2em;
+}
+
+footer .alarm-button .delete{
+	display: none;
 }
 
 footer h2{
