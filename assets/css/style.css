@@ -54,6 +54,12 @@ section, footer, header, aside{
 	display: block;
 }
 
+.close{
+	width: 36px;
+	height: 36px;
+	background: url('../img/close.png');
+}
+
 /*-------------------------
 	The clocks
 --------------------------*/
@@ -502,12 +508,9 @@ input::-webkit-inner-spin-button {
 }
 
 #alarm-dialog .close{
-	width: 36px;
-	height: 36px;
-	background: url('../img/close.png');
-	position: absolute;
 	top: 10px;
 	right: 10px;
+	position: absolute;
 	cursor:pointer;
 }
 
@@ -561,12 +564,23 @@ footer .alarm-button.active{
 	background-color:#5e5c5c;
 }
 
+footer .alarm-button.active .close{
+	position: absolute;
+	cursor: pointer;
+	right: 0px;
+	top: 0px;
+	width: 8px;
+	height: 8px;
+	background: url('http://cdn.tutorialzine.com/misc/enhance/v2_footer_bg.png') no-repeat 0 0px;
+}
+
 
 footer h2{
 	text-transform: uppercase;
 	font-size:18px;
 	color:#DBDFE5;
 	padding: 1em;
+	width: 40%;
 }
 
 footer a.tz{
@@ -589,17 +603,6 @@ footer a.tz:before{
 	display: inline-block;
 	position: relative;
 	bottom: -3px;
-}
-
-footer .close{
-	position: absolute;
-	cursor: pointer;
-	width: 8px;
-	height: 8px;
-	background: url('http://cdn.tutorialzine.com/misc/enhance/v2_footer_bg.png') no-repeat 0 0px;
-	top:10px;
-	right:10px;
-	z-index: 3;
 }
 
 footer #tzine-actions{
