@@ -126,11 +126,15 @@ $(function(){
 		//other constraints
 		var dWidth = pxToFloat(dialog.css("width")); //Dialog width
 		var adc = $("#alarm-dialog .close"); //the close button on dialog
+		var clear = $("#alarm-dialog .check#alarm-clear");
 		var adcRight = 10;
+		var clearLeft = 10;
 		if ( dWidth > w ) { //if the width is wider than the screen so the close is not visible
 			adcRight = dWidth/2 - w/2 + 10; //make the close be 10px from edge
+			clearLeft = dWidth/2 - w/2 + 10;
 		}
 		adc.css({ right: adcRight});
+		clear.css({ left: clearLeft});
 	};
 
 	/////////////////////BREAKTIME//////////////////////
