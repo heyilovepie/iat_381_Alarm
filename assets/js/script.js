@@ -103,7 +103,7 @@ $(function(){
 
 		//height constrained elements
 		var dTop = 200; // dialogue top
-		var dHeight = 320; //dialog height
+		var dHeight = 370; //dialog height
 		var saPadding = 60; //"set alarm" padding (#alarm-dialog h2)
 		var adc = $("#alarm-dialog .close"); //the close button on dialog
 		var check = $("#alarm-dialog .check");
@@ -134,12 +134,16 @@ $(function(){
 		//other constraints
 		// Sophia's note: switched the 'close' icon [adcLeft] to be left and the 'check' icon [adcRight] to be right
 		var dWidth = pxToFloat(dialog.css("width")); //Dialog width
+		var slider = $("input[type='range']");
+		var sWidth = dWidth * .8;;
 		var adcRight = 35;
 		var checkLeft = 35;
 		if ( dWidth > w ) { //if the width is wider than the screen so the close is not visible
 			adcRight = dWidth/2 - w/2 + 20; //make the close be 10px from edge
 			checkLeft = dWidth/2 - w/2 + 20;
+			sWidth = w * .8;
 		}
+		slider.css({width: sWidth});
 		adc.css({ right: adcRight});
 		check.css({ left: checkLeft});
 	};

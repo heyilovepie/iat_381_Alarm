@@ -11,6 +11,11 @@
 	General Styles
 --------------------------*/
 
+:hover, :active{
+	text-decoration: none;
+	background-color : transparent
+}
+
 .hidden{
 	display: none;
 }
@@ -368,7 +373,12 @@ section, footer, header, aside{
 input[type="range"] {
 	-webkit-appearance: none;
 	background-color: black;
-	height: 2px;
+	opacity: .5;
+	height: 20px;
+	width: 80%;
+	border: 2px;
+	border-radius: 5px;
+	border-color: black;
 }
 
 input[type="range"]::-webkit-slider-thumb {
@@ -394,14 +404,6 @@ input[type="range"]:hover ~ #rangevalue,input[type="range"]:active ~ #rangevalue
 	opacity: 1;
 	top: -75px;
 }
-
-/* Tool Tip */
-
-
-
-
-
-
 
 /*-------------------------
 	Weekdays
@@ -444,7 +446,6 @@ input[type="range"]:hover ~ #rangevalue,input[type="range"]:active ~ #rangevalue
 --------------------------*/
 
 .button {
-   border: 1px solid #000000;
    background: #333333;
    background: -webkit-gradient(linear, left top, left bottom, from(#ababab), to(#333333));
    background: -webkit-linear-gradient(top, #ababab, #333333);
@@ -465,9 +466,9 @@ input[type="range"]:hover ~ #rangevalue,input[type="range"]:active ~ #rangevalue
    font-family: helvetica, serif;
    text-decoration: none;
    vertical-align: middle;
-   }
+}
+
 .button:hover {
-   border: 1px solid #000000;
    text-shadow: #828282 0 1px 0;
    background: #787878;
    background: -webkit-gradient(linear, left top, left bottom, from(#c2c2c2), to(#787878));
@@ -477,10 +478,10 @@ input[type="range"]:hover ~ #rangevalue,input[type="range"]:active ~ #rangevalue
    background: -o-linear-gradient(top, #c2c2c2, #787878);
    background-image: -ms-linear-gradient(top, #c2c2c2 0%, #787878 100%);
    color: #fff;
-   }
+}
+
 .button:active {
    text-shadow: #949494 0 1px 0;
-   border: 1px solid #000000;
    background: #c2c2c2;
    background: -webkit-gradient(linear, left top, left bottom, from(#424242), to(#787878));
    background: -webkit-linear-gradient(top, #424242, #c2c2c2);
@@ -489,7 +490,7 @@ input[type="range"]:hover ~ #rangevalue,input[type="range"]:active ~ #rangevalue
    background: -o-linear-gradient(top, #424242, #c2c2c2);
    background-image: -ms-linear-gradient(top, #424242 0%, #c2c2c2 100%);
    color: #fff;
-   }
+}
 
 
 .button-holder{
@@ -569,6 +570,7 @@ input::-webkit-inner-spin-button {
 	/* top & height in js configure script*/
 	box-sizing: border-box;
 	width:500px;
+	top: 200px;
 	background-color:#FFF;
 	opacity: 1;
 	border-radius:2px;
@@ -580,16 +582,20 @@ input::-webkit-inner-spin-button {
 	transition: all .28s cubic-bezier(.4,0,.2,1);
 }
 
+#alarm-dialog{
+	height: 370px;
+}
+
 #alarm-dialog h2{
 	/* padding size changed in js configure script */
 	text-transform: uppercase;
-	font-size:18px;
+	font-size:24px;
 	color:#5e6268;
 	padding-bottom: 30px !important;
 }
 
 #alarm-dialog h1{
-	font-size:14px;
+	font-size:20px;
 	color:#5e6268;
 	padding: 15px 0px 3px 0px;
 }
