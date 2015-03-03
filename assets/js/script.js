@@ -107,6 +107,8 @@ $(function(){
 		var saPadding = 60; //"set alarm" padding (#alarm-dialog h2)
 		var adc = $("#alarm-dialog .close"); //the close button on dialog
 		var check = $("#alarm-dialog .check");
+		var close = $("#alarm-dialog .button-holder");
+		var clearPadding = 40;
 		var ccTop = 20; //close check top
 		if(h < 400){ //landscape mode
 			clock_move_1 = .2;
@@ -115,6 +117,7 @@ $(function(){
 			ccTop = 15;
 			dHeight = h - dTop * 2;
 			saPadding = 25;
+			clearPadding = 15;
 		}
 		else if ( dTop + dHeight > h) { //really small device
 			dTop = h - dHeight; //make bottom at bottom
@@ -128,6 +131,7 @@ $(function(){
 		time_is_up.css({top: dTop});
 		$("#alarm-dialog h2").css({"padding-top": saPadding});
 		$("#alarm-dialog h2").css({"padding-bottom": saPadding});
+		$("#alarm-dialog .button-holder").css({"padding-top": clearPadding});
 		adc.css({top: ccTop});
 		check.css({top: ccTop});
 

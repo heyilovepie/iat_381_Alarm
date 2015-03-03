@@ -12,6 +12,7 @@
 --------------------------*/
 
 :hover, :active{
+	border: 0px;
 	text-decoration: none;
 	background-color : transparent
 }
