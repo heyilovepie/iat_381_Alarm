@@ -286,7 +286,15 @@ $(function(){
 
 		//24 hr clock for reference from other script
 		var hour = parseFloat(now[0] + now[1]);
-		if(meridian === "pm") hour += 12;
+		if(meridian === "PM") hour += 12;
+
+		if(hour < 6 || hour > 18){ //night time make it dark
+			clock.addClass('light').removeClass('dark');
+		}
+		else{ //day make it light 
+			clock.addClass('dark').removeClass('light');
+		}
+
 		time = [ 
 		hour, 
 		parseFloat(now[2] + now[3]), 
@@ -304,13 +312,15 @@ $(function(){
 
 	///////////////ALARM BUTTONS///////////////////
 	$('.alarm-button').click(function(e){
+		var theButton = $(this);
+		var theID = e.target.id;
 
 		if($(e.target).is('.delete')){ //clicked on the delete button
-		var theButton = $(this);
-		console.log(theButton);
-		var theID = theButton.find('h2').id;
-		alarm_counter[theID] = -1; //reset alarm
-		alarm_viewer[theID] = "00:00:00";
+		var theID = theID.split("d")[1];
+		var IDint = parseFloat(theID);
+		alarm_counter[IDint] = -1; //reset alarm
+		alarm_viewer[IDint] = "00:00:00";
+		alarm_time[IDint] = "00:00:00";
 		//deactivate the alarm
 		activateAlarmButton(false, theButton, theID);
 		//move like a swipe
@@ -325,8 +335,6 @@ $(function(){
 		}
 
 		else{ // did not click on the delete button
-		var theID = e.target.id;
-		var theButton = $(this);
 		activateAlarmButton(true, theButton, theID);
 		if(theID == "new"){
 			//find out which alarm it is
@@ -383,7 +391,6 @@ $(function(){
 		if(ttg < 0){
 			ttg += 24 * 60 * 60; //if the alarm is for before now then make it be tomorrow
 		}
-		console.log(timeInt + " : " + alarm + " : " + ttg);
 
 		if(ttg == 0){
 			alert('Please enter a time');
