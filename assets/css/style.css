@@ -484,7 +484,7 @@ input[type="range"]:hover ~ #rangevalue,input[type="range"]:active ~ #rangevalue
    text-shadow: #949494 0 1px 0;
    background: #c2c2c2;
    background: -webkit-gradient(linear, left top, left bottom, from(#424242), to(#787878));
-   background: -webkit-linear-gradient(top, #424242, #c2c2c2);
+   background: -webkit-linearin-gradient(top, #424242, #c2c2c2);
    background: -moz-linear-gradient(top, #424242, #c2c2c2);
    background: -ms-linear-gradient(top, #424242, #c2c2c2);
    background: -o-linear-gradient(top, #424242, #c2c2c2);
@@ -629,7 +629,7 @@ input::-webkit-inner-spin-button {
 }
 
 #alarm-dialog .button-holder .button{
-	width: 250px;
+	width: 300px;
 	box-shadow:0 2px 2px #eee;
 	padding:13px 22px;
 	margin:3px;
@@ -662,6 +662,10 @@ input::-webkit-inner-spin-button {
 	cursor:pointer;
 	transition: all .3s ease-out;
 }
+
+#alarm-dialog i{
+	font-size: 45px;
+}	
 
 #time-is-up{
 	height: 240px;
