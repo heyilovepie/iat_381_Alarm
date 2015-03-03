@@ -55,14 +55,12 @@
 				<!-- Set alarm -->
 				<h2>Set Alarm</h2>
 				<form id="hours" onsubmit="return false" oninput="o.value = parseInt(a.value)">
-					<h1>Hours : </h1> 
+					<h1>Hours : <output name="o" for="a"></output></h1>
  					<input type="range" name="a" id="a" value="12" min="0" max="23">
- 					<output name="o" for="a"></output>
 				</form>
 				<form id="minutes" onsubmit="return false" oninput="o2.value = parseInt(b.value)">
-					<h1>Minutes : </h1>
+					<h1>Minutes : <output name="o2" for="b"></output></h1>
 					<input type="range" name="b" id="b" value="30" min="0" max="59"> 
-  					<output name="o2" for="b"></output>
 				</form> 
 
 				<!-- <label class="hours">
