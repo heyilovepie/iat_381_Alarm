@@ -323,15 +323,16 @@ $(function(){
 		alarm_time[IDint] = "00:00:00";
 		//deactivate the alarm
 		activateAlarmButton(false, theButton, theID);
-		//move like a swipe
+		theButton.removeClass('hidden');
+		checkAlarms();
+		//swipe the button
 		theButton
 				.velocity({translateX: 50}, 100)
 				.velocity({translateX: 0}, 300);
-
-		theButton.removeClass('hidden');
-		checkAlarms();
-		//toggle_move -= 60;
-		alarm_box.trigger('show');
+		//move the toggle to fit buttons
+		setTimeout(function(){
+				alarm_box.trigger('show');
+		}, 100);
 		}
 
 		else{ // did not click on the delete button
