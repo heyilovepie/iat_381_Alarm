@@ -1,3 +1,25 @@
+
+/////////////////////
+//Tim Down code from http://stackoverflow.com/questions/5623838/rgb-to-hex-and-hex-to-rgb 
+function componentToHex(c) {
+    var hex = c.toString(16);
+    return hex.length == 1 ? "0" + hex : hex;
+}
+
+function rgbToHex(r, g, b) {
+    return "#" + componentToHex(r) + componentToHex(g) + componentToHex(b);
+}
+
+function hexToRgb(hex) {
+    var result = /^#?([a-f\d]{2})([a-f\d]{2})([a-f\d]{2})$/i.exec(hex);
+    return result ? {
+        r: parseInt(result[1], 16),
+        g: parseInt(result[2], 16),
+        b: parseInt(result[3], 16)
+    } : null;
+}
+//////////////////////
+
 (function() {
   'use strict';
 
@@ -18,6 +40,14 @@
 
     var time = h + ':' + m + ':' + s;
     var color = '#' + h + m + s;
+    var rgb = hexToRgb(color);
+
+    //make color lighter
+    rgb.r += 30;
+    rgb.g += 30;
+    rgb.b += 30;
+
+    color = rgbToHex(rgb.r, rgb.g, rgb.b);
 
     // Change the background color to the hex color of the current time
     document.body.style.background = color;
