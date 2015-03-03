@@ -333,7 +333,8 @@ section, footer, header, aside{
 	height: 5px;
 	position: relative;
 	margin: 100px auto;
-	background: #10171D;
+	/*background: #10171D;*/
+	background-color: #FF0000;
 	
 	-webkit-border-radius: 40px;
 	-moz-border-radius: 40px;

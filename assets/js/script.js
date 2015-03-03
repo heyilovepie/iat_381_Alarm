@@ -274,13 +274,8 @@ $(function(){
 		// and make Sunday last
 
 		var dow = now[6];
-		dow--;
-		
-		// Sunday!
-		if(dow < 0){
-			// Make it last
-			dow = 6;
-		}
+		dow--; //make monday be 0
+		if(dow < 0) dow = 6; //take sunday and make it 6
 
 		// Mark the active day of the week
 		weekdays.removeClass('active').eq(dow).addClass('active');
@@ -298,7 +293,7 @@ $(function(){
 		parseFloat(now[4] + now[5]), 
 		dow];
 
-		checkAlarms();
+		checkAlarms(); //this is a function that goes through all the alarms and sees if one of them is done etc
 
 		// Schedule this function to be run again in 1 sec
 		setTimeout(update_time, 1000);
@@ -306,21 +301,6 @@ $(function(){
 	})();
 
 	/////////////JQUERY CLICKS////////////////////////
-
-	// Switch the theme
-	$('#switch-theme').click(function(){
-		clock.toggleClass('light dark');
-	});
-
-
-	//////////////ALARM TOGGLE//////////////////////
-	$('.alarm-toggle').click(function(){
-		if(alarmbox){
-			alarm_box.trigger('hide');
-		}else{
-			alarm_box.trigger('show');
-		}
-	});
 
 	///////////////ALARM BUTTONS///////////////////
 	$('.alarm-button').click(function(e){
@@ -340,9 +320,10 @@ $(function(){
 
 		theButton.removeClass('hidden');
 		checkAlarms();
-		toggle_move -= 60;
+		//toggle_move -= 60;
 		alarm_box.trigger('show');
 		}
+
 		else{ // did not click on the delete button
 		var theID = e.target.id;
 		var theButton = $(this);
@@ -372,24 +353,8 @@ $(function(){
  		clock.velocity({translateY: - h * clock_move_2}, 300);	
  		}
 	});
-
-	dialog.find('.close').click(function(){
-		dialog_p.trigger('hide')
-		if(alarm_counter[current_alarm] <= 0){ //if this alarm is not set
-			activateAlarmButton(false, $("#" + String(current_alarm)).parent(), current_alarm); //deactivate it 
-		}
-	});
-
-
-	dialog_p.click(function(e){
-		// When the overlay is clicked, hide the dialog_p.
-		if($(e.target).is('.overlay')){
-			// This check is need to prevent
-			// bubbled up events from hiding the dialog
-			dialog_p.trigger('hide');
-		}
-	});
-
+	
+	/////////////SET ALARM////////////////////////
 	alarm_set.click(function(){
 		var valid = true, after = 0;
 		var ts = [0, 0, 0]; //timer set
@@ -430,6 +395,22 @@ $(function(){
 	});
 
 
+	$('.alarm-toggle').click(function(){
+		if(alarmbox){
+			alarm_box.trigger('hide');
+		}else{
+			alarm_box.trigger('show');
+		}
+	});
+
+
+	dialog.find('.close').click(function(){
+		dialog_p.trigger('hide')
+		if(alarm_counter[current_alarm] <= 0){ //if this alarm is not set
+			activateAlarmButton(false, $("#" + String(current_alarm)).parent(), current_alarm); //deactivate it 
+		}
+	});
+
 	alarm_clear.click(function(){
 		alarm_counter[current_alarm] = -1; //reset alarm
 		dialog_p.trigger('hide');
@@ -446,6 +427,19 @@ $(function(){
 		}
 		else{
 			clock.velocity({translateY: 0}, 300);
+		}
+	});
+
+	$('#switch-theme').click(function(){
+		clock.toggleClass('light dark');
+	});
+
+	dialog_p.click(function(e){
+		// When the overlay is clicked, hide the dialog_p.
+		if($(e.target).is('.overlay')){
+			// This check is need to prevent
+			// bubbled up events from hiding the dialog
+			dialog_p.trigger('hide');
 		}
 	});
 
